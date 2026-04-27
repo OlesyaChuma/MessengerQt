@@ -1,8 +1,13 @@
-# Общая библиотека: модели, протокол, утилиты, используемые сервером и клиентом
+# Общая библиотека: модели, протокол, фрейм-кодек, хешер паролей.
 
 add_library(MessengerCommon STATIC
-    # Файлы добавим в Пакете 2
-    placeholder.cpp
+    Models.h
+    Protocol.h
+    Protocol.cpp
+    FrameCodec.h
+    FrameCodec.cpp
+    PasswordHasher.h
+    PasswordHasher.cpp
 )
 
 target_include_directories(MessengerCommon PUBLIC

@@ -1,11 +1,15 @@
-# Юнит-тесты на QTest. Реальные тесты добавим в Пакете 2.
+# Юнит-тесты на QTest для модуля Common.
 
-qt_add_executable(test_smoke test_smoke.cpp)
+function(messenger_add_test name)
+    qt_add_executable(${name} ${name}.cpp)
+    target_link_libraries(${name} PRIVATE
+        MessengerCommon
+        Qt6::Core
+        Qt6::Test
+    )
+    add_test(NAME ${name} COMMAND ${name})
+endfunction()
 
-target_link_libraries(test_smoke PRIVATE
-    MessengerCommon
-    Qt6::Core
-    Qt6::Test
-)
-
-add_test(NAME test_smoke COMMAND test_smoke)
+messenger_add_test(test_protocol)
+messenger_add_test(test_framecodec)
+messenger_add_test(test_password)
