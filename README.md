@@ -1,2 +1,103 @@
 # MessengerQt
-A network messenger with a client-server architecture based on Qt 6 and PostgreSQL. Final certification in the "C++ developer" program.
+
+Сетевой мессенджер с клиент-серверной архитектурой. Итоговая аттестация по программе «Профессия "C++ разработчик"».
+
+## Технологический стек
+
+- **Язык:** C++17
+- **GUI:** Qt 6.5 (Widgets)
+- **БД:** PostgreSQL 14+
+- **Сборка:** CMake 3.21+
+- **Компилятор:** MSVC 2022 (x64)
+- **IDE:** CLion / Qt Creator
+
+## Возможности
+
+### Сервер
+- GUI-администрирование: список пользователей, лента всех сообщений (включая приватные), журнал подключений
+- Подключение/отключение клиентов в реальном времени
+- Отключение (kick) и блокировка (ban) пользователей
+- Фильтрация сообщений по типу и отправителю
+- Хранение всех данных в PostgreSQL
+
+### Клиент
+- Регистрация и вход с проверкой подлинности
+- Личные и широковещательные сообщения
+- Список пользователей с индикатором онлайн/оффлайн
+- История диалогов с подгрузкой по мере прокрутки
+- Редактирование и удаление своих сообщений
+- Передача файлов и изображений
+- Светлая и тёмная темы оформления
+- Уведомления о новых сообщениях
+
+## Структура проекта
+```
+MessengerQt/
+├── Common/          общие модули (модели, протокол, утилиты)
+├── ChatServer/      серверное приложение с GUI
+├── ChatClient/      клиентское приложение с GUI
+├── tests/           юнит-тесты на QTest
+├── sql/             SQL-скрипты инициализации БД
+├── config/          примеры конфигурационных файлов
+└── docs/            техническая документация
+```
+
+## Сборка
+
+### Требования
+
+- Qt 6.5+ (Core, Gui, Widgets, Network, Sql, Test)
+- PostgreSQL 14+ установленный локально или доступный по сети
+- MSVC 2022 (Visual Studio Build Tools)
+- CMake 3.21+
+
+### Подготовка БД
+
+1. Создайте пользователя и БД в PostgreSQL:
+
+```sql
+   CREATE USER messenger_user WITH PASSWORD 'messenger_pass_2026';
+   CREATE DATABASE messenger_db OWNER messenger_user
+       ENCODING 'UTF8' TEMPLATE template0;
+   GRANT ALL PRIVILEGES ON DATABASE messenger_db TO messenger_user;
+```
+
+2. Накатите схему из файла `sql/001_init.sql` в БД `messenger_db`.
+
+### Сборка в CLion
+
+1. Открыть в CLion папку `MessengerQt`.
+2. Дождаться завершения CMake-конфигурации.
+3. Меню **Build → Build Project**.
+4. Бинарники появятся в `cmake-build-debug/bin/` или `cmake-build-release/bin/`.
+
+### Сборка из командной строки
+
+```bash
+cmake -S . -B build -DCMAKE_PREFIX_PATH=C:/Qt6/6.5.11/msvc2019_64
+cmake --build build --config Release
+```
+
+## Запуск
+
+1. Скопируйте `config/server.ini.example` в `config/server.ini` рядом с `ChatServer.exe` и подставьте свои данные подключения к БД.
+2. Запустите `ChatServer.exe`. При первом запуске сервер предложит создать учётную запись администратора.
+3. Запустите один или несколько `ChatClient.exe` и зарегистрируйте пользователей.
+
+## Сетевой протокол
+
+JSON-фреймы поверх TCP с длино-префиксным фреймингом (4 байта `uint32` Big-Endian + UTF-8 JSON). Подробное описание команд — в `docs/protocol.md`.
+
+## Документация
+
+- [Архитектура](docs/architecture.md)
+- [Сетевой протокол](docs/protocol.md)
+- [Схема БД](docs/db_schema.md)
+
+## Лицензия
+
+MIT — см. файл `LICENSE`.
+
+## Автор
+
+Чумаченко О. А., итоговая аттестация по программе «C++ разработчик».
