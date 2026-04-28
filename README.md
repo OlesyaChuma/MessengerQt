@@ -9,7 +9,7 @@
 - **БД:** PostgreSQL 14+
 - **Сборка:** CMake 3.21+
 - **Компилятор:** MSVC 2022 (x64)
-- **IDE:** CLion / Qt Creator
+- **IDE:** Qt Creator
 
 ## Возможности
 
