@@ -1,11 +1,18 @@
-# Серверная часть: ядро + GUI
+# Серверная часть: ядро + GUI (GUI добавим в Пакете 4).
 
 qt_add_executable(ChatServer
     main.cpp
+    core/Config.h
+    core/Config.cpp
+    core/Database.h
+    core/Database.cpp
+    core/AuthService.h
+    core/AuthService.cpp
 )
 
 target_include_directories(ChatServer PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/core
 )
 
 target_link_libraries(ChatServer PRIVATE
