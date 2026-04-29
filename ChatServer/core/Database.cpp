@@ -225,8 +225,7 @@ bool Database::initSchema(QString* errorOut) {
 
 bool Database::hasAnyAdmin() const {
     QSqlQuery q(_db);
-    q.prepare("SELECT COUNT(*) FROM users WHERE role = 'admin' AND is_banned = "
-              + QString(_driver == Driver::SQLite ? "0" : "FALSE"));
+    q.prepare("SELECT COUNT(*) FROM users WHERE role = 'admin' AND is_banned = FALSE");
     if (!q.exec() || !q.next()) return false;
     return q.value(0).toLongLong() > 0;
 }
@@ -340,7 +339,7 @@ bool Database::setBanned(qint64 userId, bool banned,
             banned_by  = :by_user
         WHERE id = :id
     )SQL");
-    q.bindValue(":banned",  banned ? 1 : 0);
+    q.bindValue(":banned",  QVariant::fromValue(banned));
     q.bindValue(":reason",  banned ? reason : QString());
     q.bindValue(":by_user", banned && byUserId > 0 ? QVariant(byUserId) : QVariant(QMetaType(QMetaType::LongLong)));
     q.bindValue(":id",      userId);
@@ -361,7 +360,7 @@ qint64 Database::saveMessage(qint64 senderId, qint64 receiverId,
     q.bindValue(":sender",     senderId);
     q.bindValue(":receiver",   isBroadcast ? QVariant(QMetaType(QMetaType::LongLong))
                                            : QVariant(receiverId));
-    q.bindValue(":broadcast",  isBroadcast ? 1 : 0);
+    q.bindValue(":broadcast",  QVariant::fromValue(isBroadcast));
     q.bindValue(":body",       body);
     q.bindValue(":created_at", nowUtc());
 
@@ -465,7 +464,7 @@ QList<Message> Database::loadHistory(qint64 ownUserId, qint64 peerId,
     )SQL";
 
     if (peerId == 0) {
-        sql += " m.is_broadcast = 1 ";
+        sql += " m.is_broadcast = TRUE ";
     } else {
         sql += R"SQL(
             ((m.sender_id = :own AND m.receiver_id = :peer)
@@ -512,8 +511,8 @@ QList<Message> Database::loadAllMessages(qint64 senderFilter,
     )SQL";
 
     if (senderFilter > 0)   sql += " AND m.sender_id = :sender ";
-    if (onlyBroadcast)      sql += " AND m.is_broadcast = 1 ";
-    if (onlyPrivate)        sql += " AND m.is_broadcast = 0 ";
+    if (onlyBroadcast)      sql += " AND m.is_broadcast = TRUE ";
+    if (onlyPrivate)        sql += " AND m.is_broadcast = FALSE ";
     if (beforeId > 0)       sql += " AND m.id < :before ";
 
     sql += " ORDER BY m.id DESC LIMIT :limit";

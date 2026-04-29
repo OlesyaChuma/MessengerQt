@@ -115,3 +115,9 @@ struct Message {
 constexpr qint64 kMaxAttachmentSize = 10LL * 1024 * 1024;
 
 } // namespace messenger
+
+#include <QMetaType>
+Q_DECLARE_METATYPE(messenger::Message)
+Q_DECLARE_METATYPE(messenger::User)
+Q_DECLARE_METATYPE(messenger::Attachment)
+Q_DECLARE_METATYPE(messenger::ResultCode)
