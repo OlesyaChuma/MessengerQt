@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/server">
+        <file>theme_light.qss</file>
+        <file>theme_dark.qss</file>
+        <file alias="icons/server.svg">icons/server.svg</file>
+        <file alias="icons/user.svg">icons/user.svg</file>
+        <file alias="icons/message.svg">icons/message.svg</file>
+        <file alias="icons/log.svg">icons/log.svg</file>
+    </qresource>
+</RCC>
