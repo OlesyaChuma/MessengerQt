@@ -22,8 +22,14 @@ qt_add_executable(ChatServer
     gui/LoginDialog.cpp
     gui/MainWindow.h
     gui/MainWindow.cpp
+    gui/UsersModel.h
+    gui/UsersModel.cpp
     gui/UsersTab.h
     gui/UsersTab.cpp
+    gui/BanDialog.h
+    gui/BanDialog.cpp
+    gui/MessagesModel.h
+    gui/MessagesModel.cpp
     gui/MessagesTab.h
     gui/MessagesTab.cpp
     gui/ConnectionLogTab.h
@@ -58,7 +64,6 @@ target_link_libraries(ChatServer PRIVATE
     Qt6::Sql
 )
 
-# GUI-приложение — без консольного окна
 set_target_properties(ChatServer PROPERTIES
     WIN32_EXECUTABLE ON
 )
