@@ -2,35 +2,59 @@
 #include "UsersTab.h"
 #include "MessagesTab.h"
 #include "ConnectionLogTab.h"
-
+#include "TrayIcon.h"
+#include "SettingsDialog.h"
 #include "ThemeManager.h"
+
 #include "Database.h"
 #include "AuthService.h"
 #include "ChatServer.h"
+#include "TranslationManager.h"
 
 #include <QTabWidget>
 #include <QLabel>
 #include <QStatusBar>
 #include <QMenuBar>
-#include <QToolBar>
 #include <QAction>
 #include <QApplication>
 #include <QStyle>
 #include <QMessageBox>
+#include <QSettings>
+#include <QCloseEvent>
+#include <QSystemTrayIcon>
+#include <QInputDialog>
+#include <QPushButton>
+#include <QAbstractButton>
 
 namespace messenger::server::gui {
 
 MainWindow::MainWindow(Database* db, AuthService* auth, ChatServer* server,
-                       UserRecord adminRecord, QWidget* parent)
+                       UserRecord adminRecord,
+                       const Config& cfg, const QString& configPath,
+                       QWidget* parent)
     : QMainWindow(parent),
-      _db(db), _auth(auth), _server(server), _admin(adminRecord) {
+      _db(db), _auth(auth), _server(server), _admin(adminRecord),
+      _cfg(cfg), _configPath(configPath) {
     setWindowTitle(tr("MessengerQt — Server Administration"));
+    setWindowIcon(QIcon(":/server/icons/server.svg"));
     resize(1100, 720);
 
     setupUi();
     setupMenu();
     setupStatusBar();
     wireServerSignals();
+    setupTray();
+
+    loadWindowState();
+
+    // Реакция на смену языка во время работы
+    connect(&TranslationManager::instance(),
+            &TranslationManager::languageChanged,
+            this, &MainWindow::onLanguageChanged);
+}
+
+MainWindow::~MainWindow() {
+    saveWindowState();
 }
 
 void MainWindow::setupUi() {
@@ -40,7 +64,7 @@ void MainWindow::setupUi() {
 
     _usersTab    = new UsersTab(_db, _server, _admin.id, this);
     _messagesTab = new MessagesTab(_db, _server, this);
-    _logTab      = new ConnectionLogTab(_db, this);
+    _logTab      = new ConnectionLogTab(_db, _server, this);
 
     const auto userIcon = QIcon(":/server/icons/user.svg");
     const auto msgIcon  = QIcon(":/server/icons/message.svg");
@@ -54,22 +78,44 @@ void MainWindow::setupUi() {
 }
 
 void MainWindow::setupMenu() {
-    auto* menuFile   = menuBar()->addMenu(tr("&File"));
-    auto* menuView   = menuBar()->addMenu(tr("&View"));
-    auto* menuHelp   = menuBar()->addMenu(tr("&Help"));
+    auto* menuFile = menuBar()->addMenu(tr("&File"));
+    auto* menuView = menuBar()->addMenu(tr("&View"));
+    auto* menuHelp = menuBar()->addMenu(tr("&Help"));
+
+    _settingsAction = menuFile->addAction(tr("&Settings..."));
+    _settingsAction->setShortcut(QKeySequence("Ctrl+,"));
+    connect(_settingsAction, &QAction::triggered,
+            this, &MainWindow::onSettingsTriggered);
+
+    menuFile->addSeparator();
+
+    auto* hideAct = menuFile->addAction(tr("Minimize to &tray"));
+    hideAct->setShortcut(QKeySequence("Ctrl+H"));
+    connect(hideAct, &QAction::triggered, this, &MainWindow::hide);
 
     auto* exitAct = menuFile->addAction(tr("E&xit"));
     exitAct->setShortcut(QKeySequence::Quit);
-    connect(exitAct, &QAction::triggered, qApp, &QApplication::quit);
+    connect(exitAct, &QAction::triggered, this, [this]() {
+        _reallyQuit = true;
+        close();
+    });
 
     _themeAction = menuView->addAction(tr("Toggle &theme (Light/Dark)"));
     _themeAction->setShortcut(QKeySequence("Ctrl+T"));
     connect(_themeAction, &QAction::triggered, this, &MainWindow::onThemeToggled);
 
-    auto* refreshAct = menuView->addAction(tr("&Refresh"));
+    _languageAction = menuView->addAction(tr("&Language..."));
+    connect(_languageAction, &QAction::triggered, this, &MainWindow::onSelectLanguage);
+
+    menuView->addSeparator();
+
+    auto* refreshAct = menuView->addAction(tr("&Refresh current tab"));
     refreshAct->setShortcut(QKeySequence::Refresh);
     connect(refreshAct, &QAction::triggered, this, [this]() {
-        // Обновление вкладок реализуем в Пакете 4Б/4В
+        const int idx = _tabs->currentIndex();
+        if (idx == 0) _usersTab->reload();
+        else if (idx == 1) _messagesTab->reload();
+        else if (idx == 2) _logTab->reload();
     });
 
     auto* aboutAct = menuHelp->addAction(tr("&About..."));
@@ -99,6 +145,19 @@ void MainWindow::setupStatusBar() {
     sb->addPermanentWidget(_adminLabel);
 }
 
+void MainWindow::setupTray() {
+    if (!QSystemTrayIcon::isSystemTrayAvailable()) {
+        return; // на системах без трея просто пропускаем
+    }
+    _tray = new TrayIcon(this, this);
+    connect(_tray, &TrayIcon::aboutRequested,
+            this, &MainWindow::onTrayAboutRequested);
+    connect(_tray, &TrayIcon::quitRequested,
+            this, &MainWindow::onTrayQuitRequested);
+    _tray->setOnlineCount(0);
+    _tray->show();
+}
+
 void MainWindow::wireServerSignals() {
     connect(_server, &ChatServer::serverMessage,
             this, &MainWindow::onServerMessage);
@@ -126,6 +185,11 @@ void MainWindow::onAboutTriggered() {
         .arg(QApplication::applicationVersion()));
 }
 
+void MainWindow::onSettingsTriggered() {
+    SettingsDialog dlg(_cfg, _configPath, this);
+    dlg.exec();
+}
+
 void MainWindow::onServerMessage(const QString& text) {
     _serverStatus->setText(text);
 }
@@ -137,22 +201,137 @@ void MainWindow::onClientConnected(const QString& peer) {
 void MainWindow::onClientAuthenticated(qint64 userId, const QString& login) {
     statusBar()->showMessage(tr("User logged in: %1 (id=%2)").arg(login).arg(userId), 4000);
     updateOnlineCounter();
+    if (_tray) {
+        _tray->notify(tr("User connected"),
+                      tr("%1 logged in").arg(login),
+                      QSystemTrayIcon::Information, 3000);
+    }
 }
 
 void MainWindow::onClientDisconnected(qint64 userId, const QString& login) {
     if (userId > 0) {
-        statusBar()->showMessage(
-            tr("User logged out: %1").arg(login), 4000);
+        statusBar()->showMessage(tr("User logged out: %1").arg(login), 4000);
     }
     updateOnlineCounter();
 }
 
 void MainWindow::onNewMessageDispatched(const Message& /*msg*/) {
-    // Обработка живой ленты — в MessagesTab (Пакет 4Б)
+    // Лента сама обновляется через MessagesTab
 }
 
 void MainWindow::updateOnlineCounter() {
-    _onlineCounter->setText(tr("Online: %1").arg(_server->sessionsCount()));
+    const int count = _server->sessionsCount();
+    _onlineCounter->setText(tr("Online: %1").arg(count));
+    if (_tray) _tray->setOnlineCount(count);
+}
+
+void MainWindow::onTrayAboutRequested() {
+    onAboutTriggered();
+}
+
+void MainWindow::onTrayQuitRequested() {
+    _reallyQuit = true;
+    QApplication::quit();
+}
+
+void MainWindow::closeEvent(QCloseEvent* event) {
+    if (_reallyQuit) {
+        // Программный выход (через меню/трей) — закрываемся без вопросов
+        saveWindowState();
+        event->accept();
+        return;
+    }
+
+    // Пользователь нажал крестик — спрашиваем, что делать
+    QMessageBox box(this);
+    box.setWindowTitle(tr("Close server"));
+    box.setIcon(QMessageBox::Question);
+    box.setText(tr("<b>Close MessengerQt Server?</b>"));
+    box.setInformativeText(tr(
+        "If you choose <b>Quit</b>, the server will stop and all connected "
+        "clients will be disconnected.<br><br>"
+        "If you choose <b>Hide to tray</b>, the server keeps running in the "
+        "background and you can restore the window from the system tray icon."));
+
+    QPushButton* hideBtn   = nullptr;
+    QPushButton* quitBtn   = box.addButton(tr("Quit server"), QMessageBox::DestructiveRole);
+    if (_tray && QSystemTrayIcon::isSystemTrayAvailable()) {
+        hideBtn = box.addButton(tr("Hide to tray"), QMessageBox::AcceptRole);
+        box.setDefaultButton(hideBtn);
+    } else {
+        box.setDefaultButton(quitBtn);
+    }
+    box.addButton(tr("Cancel"), QMessageBox::RejectRole);
+
+    box.exec();
+    QAbstractButton* clicked = box.clickedButton();
+
+    if (clicked == static_cast<QAbstractButton*>(quitBtn)) {
+        _reallyQuit = true;
+        saveWindowState();
+        event->accept();
+        QApplication::quit();
+    } else if (hideBtn && clicked == static_cast<QAbstractButton*>(hideBtn)) {
+        hide();
+        event->ignore();
+    } else {
+        // Cancel или закрытие диалога — отменяем закрытие
+        event->ignore();
+    }
+}
+
+void MainWindow::loadWindowState() {
+    QSettings s;
+    const auto geom = s.value("ui/mainwindow/geometry").toByteArray();
+    const auto state = s.value("ui/mainwindow/state").toByteArray();
+    if (!geom.isEmpty()) restoreGeometry(geom);
+    if (!state.isEmpty()) restoreState(state);
+}
+
+void MainWindow::saveWindowState() {
+    QSettings s;
+    s.setValue("ui/mainwindow/geometry", saveGeometry());
+    s.setValue("ui/mainwindow/state", saveState());
+}
+
+void MainWindow::onSelectLanguage() {
+    auto& tm = TranslationManager::instance();
+    QStringList items = {
+        TranslationManager::name(TranslationManager::Language::English),
+        TranslationManager::name(TranslationManager::Language::Russian)
+    };
+    int currentIdx = (tm.current() == TranslationManager::Language::Russian) ? 1 : 0;
+
+    bool ok = false;
+    QString choice = QInputDialog::getItem(this,
+                                           tr("Select language"),
+                                           tr("Interface language:"),
+                                           items, currentIdx, false, &ok);
+    if (!ok) return;
+
+    auto target = (choice == items[1])
+                      ? TranslationManager::Language::Russian
+                      : TranslationManager::Language::English;
+    tm.apply(target);
+}
+
+void MainWindow::onLanguageChanged() {
+    retranslateUi();
+}
+
+void MainWindow::retranslateUi() {
+    setWindowTitle(tr("MessengerQt — Server Administration"));
+    _adminLabel->setText(tr("Signed in as: %1").arg(_admin.login));
+    updateOnlineCounter();
+
+    // Перестроим меню целиком — простой и надёжный способ
+    menuBar()->clear();
+    setupMenu();
+
+    // Названия вкладок
+    _tabs->setTabText(0, tr("Users"));
+    _tabs->setTabText(1, tr("Messages"));
+    _tabs->setTabText(2, tr("Connection log"));
 }
 
 } // namespace messenger::server::gui

@@ -51,3 +51,13 @@ add_custom_target(copy_resources ALL
         ${CMAKE_BINARY_DIR}/bin/sql/001_init.sql
     COMMENT "Copy config and sql resources to bin/"
 )
+
+# ---------- Локализация ----------
+# Подключаем модуль LinguistTools для перевода
+find_package(Qt6 6.5 QUIET COMPONENTS LinguistTools)
+
+if(Qt6LinguistTools_FOUND)
+    message(STATUS "Qt6 LinguistTools found - translations are enabled")
+else()
+    message(WARNING "Qt6 LinguistTools NOT found - translations will be skipped")
+endif()

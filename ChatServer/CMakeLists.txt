@@ -18,6 +18,8 @@ qt_add_executable(ChatServer
     # GUI
     gui/ThemeManager.h
     gui/ThemeManager.cpp
+    gui/TranslationManager.h
+    gui/TranslationManager.cpp
     gui/LoginDialog.h
     gui/LoginDialog.cpp
     gui/MainWindow.h
@@ -32,8 +34,14 @@ qt_add_executable(ChatServer
     gui/MessagesModel.cpp
     gui/MessagesTab.h
     gui/MessagesTab.cpp
+    gui/ConnectionLogModel.h
+    gui/ConnectionLogModel.cpp
     gui/ConnectionLogTab.h
     gui/ConnectionLogTab.cpp
+    gui/TrayIcon.h
+    gui/TrayIcon.cpp
+    gui/SettingsDialog.h
+    gui/SettingsDialog.cpp
 )
 
 # Ресурсы (qrc)
@@ -69,3 +77,25 @@ set_target_properties(ChatServer PROPERTIES
 )
 
 messenger_deploy_qt_with_sql(ChatServer)
+
+# ---------- Локализация ----------
+# .qm файлы генерируем заранее через update_translations.bat
+# (он гоняет lupdate/lrelease вне CMake — надёжнее) и подключаем
+# готовые .qm в ресурсы напрямую.
+set(SERVER_QM_FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/translations/messenger_server_en.qm
+    ${CMAKE_CURRENT_SOURCE_DIR}/translations/messenger_server_ru.qm
+)
+
+# Создадим пустые файлы-заглушки, если их ещё нет — чтобы CMake не падал
+foreach(QM_FILE ${SERVER_QM_FILES})
+    if(NOT EXISTS ${QM_FILE})
+        file(WRITE ${QM_FILE} "")
+    endif()
+endforeach()
+
+qt_add_resources(ChatServer "server_translations"
+    PREFIX "/server/i18n"
+    BASE   ${CMAKE_CURRENT_SOURCE_DIR}/translations
+    FILES  ${SERVER_QM_FILES}
+)
