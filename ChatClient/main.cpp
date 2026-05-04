@@ -1,46 +1,44 @@
 #include "core/ChatClientCore.h"
-#include "ConsoleUi.h"
+#include "gui/LoginWindow.h"
+#include "gui/MainWindow.h"
+#include "gui/ThemeManager.h"
+#include "gui/TranslationManager.h"
 
-#include <QCoreApplication>
-#include <QCommandLineParser>
-#include <QStringList>
-#include <iostream>
+#include <QApplication>
+#include <QIcon>
+
+#ifdef Q_OS_WIN
+#include <windows.h>
+#include <shobjidl.h>
+#endif
 
 using namespace messenger;
 using namespace messenger::client;
+using namespace messenger::client::gui;
 
 int main(int argc, char** argv) {
-    QCoreApplication app(argc, argv);
-    QCoreApplication::setApplicationName("MessengerQt Console Client");
-    QCoreApplication::setApplicationVersion("1.0.0");
+    QApplication app(argc, argv);
+    QApplication::setApplicationName("MessengerQt Client");
+    QApplication::setOrganizationName("MessengerQt");
+    QApplication::setApplicationVersion("1.0.0");
+    QApplication::setWindowIcon(QIcon(":/client/icons/app.svg"));
 
-    QCommandLineParser parser;
-    parser.setApplicationDescription("Console chat client (debug build).");
-    parser.addHelpOption();
-    parser.addVersionOption();
+#ifdef Q_OS_WIN
+    SetCurrentProcessExplicitAppUserModelID(L"MessengerQt.Client.1");
+#endif
 
-    QCommandLineOption hostOpt({"H", "host"},
-        "Server host (default: localhost)", "host", "localhost");
-    QCommandLineOption portOpt({"p", "port"},
-        "Server port (default: 54000)", "port", "54000");
-
-    parser.addOption(hostOpt);
-    parser.addOption(portOpt);
-    parser.process(app);
-
-    const QString host = parser.value(hostOpt);
-    const quint16 port = static_cast<quint16>(parser.value(portOpt).toUInt());
+    ThemeManager::instance().apply(ThemeManager::instance().current());
+    TranslationManager::instance().apply(TranslationManager::instance().current());
 
     ChatClientCore core;
-    ConsoleUi ui(&core, host, port);
 
-    QObject::connect(&ui, &ConsoleUi::shutdownRequested,
-                     &app, &QCoreApplication::quit);
+    LoginWindow login(&core);
+    if (login.exec() != QDialog::Accepted) {
+        return 0;
+    }
 
-    ui.start();
+    MainWindow window(&core);
+    window.show();
 
-    const int rc = app.exec();
-    core.disconnectFromServer();
-    std::cout << "Client stopped.\n";
-    return rc;
+    return app.exec();
 }
