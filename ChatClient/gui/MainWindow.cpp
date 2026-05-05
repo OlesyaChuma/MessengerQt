@@ -58,6 +58,15 @@ void MainWindow::setupUi() {
     _splitter->setSizes({260, 700});
 
     setCentralWidget(_splitter);
+
+    // Когда юзер выбирает чат в боковой панели — пока просто
+    // обновляем заголовок окна. Полноценная реакция — в Пакете 5Б-2.
+    connect(_usersPanel, &UsersPanel::chatSelected,
+            this, [this](qint64 peerId, const QString& label) {
+                Q_UNUSED(peerId);
+                setWindowTitle(tr("MessengerQt — %1 — %2")
+                                   .arg(_core->currentDisplayName(), label));
+            });
 }
 
 void MainWindow::setupMenu() {

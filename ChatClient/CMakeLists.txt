@@ -16,6 +16,12 @@ qt_add_executable(ChatClient
     gui/LoginWindow.cpp
     gui/MainWindow.h
     gui/MainWindow.cpp
+    gui/AvatarRenderer.h
+    gui/AvatarRenderer.cpp
+    gui/UsersListModel.h
+    gui/UsersListModel.cpp
+    gui/UserItemDelegate.h
+    gui/UserItemDelegate.cpp
     gui/UsersPanel.h
     gui/UsersPanel.cpp
     gui/ChatPanel.h
