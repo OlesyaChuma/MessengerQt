@@ -104,6 +104,16 @@ bool UsersListModel::isBroadcastRow(int row) const {
     return broadcastVisible;
 }
 
+void UsersListModel::onLanguageChanged()
+{
+    // Обновляем broadcast-строку — её текст зависит от tr().
+    if (rowCount() > 0) {
+        const auto idx = index(0, 0);
+        emit dataChanged(idx, idx,
+                         {Qt::DisplayRole, DisplayNameRole});
+    }
+}
+
 User UsersListModel::userAt(int row) const {
     if (isBroadcastRow(row)) return User{}; // id=0
     int realIndex = isBroadcastRow(0) ? row - 1 : row;

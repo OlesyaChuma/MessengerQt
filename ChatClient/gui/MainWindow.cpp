@@ -14,6 +14,7 @@
 #include <QSettings>
 #include <QCloseEvent>
 #include <QInputDialog>
+#include <QApplication>
 
 namespace messenger::client::gui {
 
@@ -59,13 +60,40 @@ void MainWindow::setupUi() {
 
     setCentralWidget(_splitter);
 
-    // Когда юзер выбирает чат в боковой панели — пока просто
-    // обновляем заголовок окна. Полноценная реакция — в Пакете 5Б-2.
+    // При выборе диалога в боковой панели — открываем его в чате
     connect(_usersPanel, &UsersPanel::chatSelected,
-            this, [this](qint64 peerId, const QString& label) {
-                Q_UNUSED(peerId);
-                setWindowTitle(tr("MessengerQt — %1 — %2")
-                                   .arg(_core->currentDisplayName(), label));
+            _chatPanel, &ChatPanel::switchToChat);
+
+    // Когда сообщение пришло в неактивный чат — показываем индикатор «непрочитано»
+    connect(_chatPanel, &ChatPanel::unreadInChat,
+            this, [this](qint64 peerId) {
+                if (_usersPanel->currentPeerId() != peerId) {
+                    _usersPanel->markUnread(peerId, true);
+                    incrementUnread(peerId);
+                }
+            });
+
+    // Сбрасываем непрочитанные при выборе чата
+    connect(_usersPanel, &UsersPanel::chatSelected,
+            this, [this](qint64 peerId, const QString&) {
+                clearUnreadFor(peerId);
+            });
+
+    // Слушаем все новые сообщения для tray-уведомлений и звуковых сигналов
+    connect(_core, &ChatClientCore::newMessageArrived,
+            this, [this](const Message& m) {
+                // Не уведомляем о собственных сообщениях
+                if (m.senderId == _core->currentUserId()) return;
+
+                const qint64 chatId = m.isBroadcast ? 0 : m.senderId;
+                const bool windowActive = isActiveWindow();
+                const bool sameChat =
+                    (windowActive && _usersPanel->currentPeerId() == chatId);
+
+                // Если юзер уже смотрит этот чат — не дёргаем
+                if (sameChat) return;
+
+                notifyNewMessage(m.senderLogin, m.body);
             });
 }
 
@@ -142,9 +170,18 @@ void MainWindow::onLanguageChanged() {
 }
 
 void MainWindow::retranslateUi() {
-    setWindowTitle(tr("MessengerQt — %1").arg(_core->currentDisplayName()));
+    // Заголовок окна (с учётом счётчика непрочитанных)
+    updateWindowTitle();
+
+    // Статус-бар
+    if (_core->isConnected()) {
+        _connectionStatus->setText(tr("Connected"));
+    } else {
+        _connectionStatus->setText(tr("Disconnected"));
+    }
     _userLabel->setText(tr("Signed in as: %1").arg(_core->currentLogin()));
 
+    // Меню — пересоздаём целиком
     menuBar()->clear();
     setupMenu();
 }
@@ -163,8 +200,11 @@ void MainWindow::onCoreState(ChatClientCore::State,
                              ChatClientCore::State newS) {
     if (newS == ChatClientCore::State::Disconnected) {
         _connectionStatus->setText(tr("Disconnected"));
-        _connectionStatus->setObjectName("statusError");
         _connectionStatus->setStyleSheet("color: #c0392b; font-weight: 500;");
+    } else if (newS == ChatClientCore::State::Authenticated ||
+               newS == ChatClientCore::State::Connected) {
+        _connectionStatus->setText(tr("Connected"));
+        _connectionStatus->setStyleSheet("color: #27ae60; font-weight: 500;");
     }
 }
 
@@ -203,6 +243,41 @@ void MainWindow::saveWindowState() {
     QSettings s;
     s.setValue("client/ui/mainwindow/geometry", saveGeometry());
     s.setValue("client/ui/mainwindow/splitter", _splitter->saveState());
+}
+
+void MainWindow::incrementUnread(qint64 peerId) {
+    _unreadByPeer[peerId] = _unreadByPeer.value(peerId, 0) + 1;
+    _unreadTotal++;
+    updateWindowTitle();
+}
+
+void MainWindow::clearUnreadFor(qint64 peerId) {
+    const int n = _unreadByPeer.value(peerId, 0);
+    if (n > 0) {
+        _unreadTotal -= n;
+        if (_unreadTotal < 0) _unreadTotal = 0;
+        _unreadByPeer.remove(peerId);
+        updateWindowTitle();
+    }
+}
+
+void MainWindow::updateWindowTitle() {
+    const QString name = _core->currentDisplayName();
+    if (_unreadTotal > 0) {
+        setWindowTitle(tr("MessengerQt — %1 (%2)")
+                           .arg(name).arg(_unreadTotal));
+    } else {
+        setWindowTitle(tr("MessengerQt — %1").arg(name));
+    }
+}
+
+void MainWindow::notifyNewMessage(const QString& /*senderName*/,
+                                  const QString& /*body*/) {
+    // 1) Мигание иконки в панели задач — стандарт Windows
+    QApplication::alert(this);
+
+    // 2) Звуковой сигнал — системный «дзинь»
+    QApplication::beep();
 }
 
 } // namespace messenger::client::gui

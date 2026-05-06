@@ -3,6 +3,7 @@
 #include "ChatClientCore.h"
 
 #include <QMainWindow>
+#include <QHash>
 
 class QSplitter;
 class QLabel;
@@ -53,6 +54,14 @@ private:
 
     QAction* _themeAction = nullptr;
     QAction* _languageAction = nullptr;
+
+    int _unreadTotal = 0;
+    QHash<qint64, int> _unreadByPeer;  // peerId - counter
+
+    void incrementUnread(qint64 peerId);
+    void clearUnreadFor(qint64 peerId);
+    void updateWindowTitle();
+    void notifyNewMessage(const QString& senderName, const QString& body);
 };
 
 } // namespace messenger::client::gui

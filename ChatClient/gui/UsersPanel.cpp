@@ -1,6 +1,8 @@
 #include "UsersPanel.h"
 #include "UsersListModel.h"
 #include "UserItemDelegate.h"
+#include "ThemeManager.h"
+#include "TranslationManager.h"
 
 #include "ChatClientCore.h"
 #include "Models.h"
@@ -12,6 +14,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QSet>
+#include <QCoreApplication>
 
 namespace messenger::client::gui {
 
@@ -19,7 +22,6 @@ UsersPanel::UsersPanel(ChatClientCore* core, QWidget* parent)
     : QWidget(parent), _core(core) {
     setMinimumWidth(260);
     setObjectName("usersPanel");
-
     auto* layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
@@ -44,7 +46,7 @@ UsersPanel::UsersPanel(ChatClientCore* core, QWidget* parent)
     _list->setItemDelegate(new UserItemDelegate(_list));
     _list->setSelectionMode(QAbstractItemView::SingleSelection);
     _list->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    _list->setMouseTracking(true); // для hover-эффекта в делегате
+    _list->setMouseTracking(true);
     _list->setUniformItemSizes(true);
     _list->setAlternatingRowColors(false);
     _list->setFrameShape(QFrame::NoFrame);
@@ -56,7 +58,6 @@ UsersPanel::UsersPanel(ChatClientCore* core, QWidget* parent)
     connect(_search, &QLineEdit::textChanged,
             this, &UsersPanel::onSearchChanged);
 
-    // Обновления онлайн-статуса
     connect(_core, &ChatClientCore::userOnline,
             this, &UsersPanel::onCoreUserOnline);
     connect(_core, &ChatClientCore::userOffline,
@@ -78,16 +79,38 @@ UsersPanel::UsersPanel(ChatClientCore* core, QWidget* parent)
     }
 
     setStyleSheet(R"(
-        QLabel#usersPanelHeader {
-            font-size: 14px;
-            font-weight: 600;
-            color: palette(text);
-        }
         QListView {
             background-color: transparent;
             outline: none;
+            selection-background-color: #5dade2;
+            selection-color: white;
         }
     )");
+
+    // Применяет цвет заголовка и переводы в зависимости от темы и языка
+    auto applyHeader = [this]() {
+        const bool dark = (palette().color(QPalette::Window).lightness() < 128);
+        _header->setText(tr("Conversations"));
+        _header->setStyleSheet(
+            QString("font-size: 14px; font-weight: 600; color: %1;")
+                .arg(dark ? "#d4d8de" : "#2c3e50"));
+        _search->setPlaceholderText(tr("Search users..."));
+    };
+    applyHeader();
+
+    // При смене темы — пересчитываем цвет
+    connect(&ThemeManager::instance(), &ThemeManager::themeChanged,
+            this, [applyHeader]() { applyHeader(); });
+
+    // При смене языка — обновляем тексты и цвет (через очередь, чтобы tr() уже применился)
+    connect(&TranslationManager::instance(),
+            &TranslationManager::languageChanged,
+            this, [this, applyHeader]() {
+                QMetaObject::invokeMethod(this, [this, applyHeader]() {
+                    applyHeader();
+                    _model->onLanguageChanged();
+                }, Qt::QueuedConnection);
+            });
 }
 
 void UsersPanel::requestUsers() {

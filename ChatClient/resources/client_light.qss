@@ -39,10 +39,11 @@ QPushButton:pressed { background-color: #d6e4f1; }
 QPushButton:disabled { color: #95a5a6; background-color: #f0f2f5; }
 
 QPushButton#primaryButton {
-    background-color: #2980b9; color: white; border: 1px solid #2471a3;
+    background-color: #5dade2; color: white; border: 1px solid #4a9bcd;
+    font-weight: 600;
 }
-QPushButton#primaryButton:hover { background-color: #2471a3; }
-QPushButton#primaryButton:pressed { background-color: #1f618d; }
+QPushButton#primaryButton:hover { background-color: #4a9bcd; }
+QPushButton#primaryButton:pressed { background-color: #3a89bb; }
 
 QLineEdit, QSpinBox {
     background-color: #ffffff;
@@ -73,3 +74,25 @@ QScrollBar::handle:vertical:hover { background-color: #9bb6d4; }
 QScrollBar::add-line, QScrollBar::sub-line { height: 0; }
 
 QCheckBox { spacing: 8px; }
+
+/* Контекстные меню (правый клик) */
+QMenu {
+    background-color: #ffffff;
+    color: #2c3e50;
+    border: 1px solid #d9dde2;
+    padding: 4px 0;
+    border-radius: 4px;
+}
+QMenu::item {
+    padding: 6px 24px;
+    background-color: transparent;
+}
+QMenu::item:selected {
+    background-color: #e3eaf3;
+    color: #2c3e50;
+}
+QMenu::separator {
+    height: 1px;
+    background-color: #d9dde2;
+    margin: 4px 8px;
+}

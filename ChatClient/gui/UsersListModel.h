@@ -50,6 +50,9 @@ public:
     User userAt(int row) const;
     bool isBroadcastRow(int row) const;
 
+public slots:
+    void onLanguageChanged();
+
 private:
     void rebuildVisible();
     void sortUsers();
