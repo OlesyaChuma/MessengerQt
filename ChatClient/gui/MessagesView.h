@@ -35,6 +35,9 @@ public:
     // Заглушка-приветствие, пока чат не выбран
     void showPlaceholder(const QString& text);
 
+    // Найти сообщение по id (для редактирования). Возвращает пустое если нет.
+    Message findMessage(qint64 messageId) const;
+
 signals:
     void editRequested(qint64 messageId);
     void deleteRequested(qint64 messageId);

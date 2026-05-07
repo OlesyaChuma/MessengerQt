@@ -573,23 +573,33 @@ Check Database section in %2 and ensure messenger_db is reachable.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="109"/>
+        <location filename="../gui/MessagesTab.cpp" line="114"/>
         <source>Loaded %1 messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="121"/>
+        <location filename="../gui/MessagesTab.cpp" line="126"/>
         <source>No more older messages. Total: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="124"/>
+        <location filename="../gui/MessagesTab.cpp" line="129"/>
         <source>Loaded %1 more (total: %2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="147"/>
+        <location filename="../gui/MessagesTab.cpp" line="152"/>
         <source>Loaded %1 messages (last: live update)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/MessagesTab.cpp" line="158"/>
+        <source>Loaded %1 messages (last: edit)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/MessagesTab.cpp" line="164"/>
+        <source>Loaded %1 messages (last: delete)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

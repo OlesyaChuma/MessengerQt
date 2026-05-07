@@ -184,6 +184,7 @@ void ChatServer::dispatchMessageEdited(const Message& msg, ClientSession* origin
         if (s == origin) continue;
         s->send(envelope);
     }
+    emit messageEditedDispatched(msg);
 }
 
 void ChatServer::dispatchMessageDeleted(const Message& msg, ClientSession* origin) {
@@ -192,6 +193,7 @@ void ChatServer::dispatchMessageDeleted(const Message& msg, ClientSession* origi
         if (s == origin) continue;
         s->send(envelope);
     }
+    emit messageDeletedDispatched(msg);
 }
 
 } // namespace messenger::server

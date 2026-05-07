@@ -11,6 +11,7 @@
 #include <QContextMenuEvent>
 #include <QApplication>
 #include "ThemeManager.h"
+#include "TranslationManager.h"
 
 namespace messenger::client::gui {
 
@@ -116,6 +117,9 @@ MessageBubble::MessageBubble(const Message& msg, bool isMine, QWidget* parent)
     rebuild();
     connect(&ThemeManager::instance(), &ThemeManager::themeChanged,
             this, [this]() { rebuild(); update(); });
+    connect(&TranslationManager::instance(),
+            &TranslationManager::languageChanged,
+            this, [this]() { rebuild(); });
 }
 
 QString MessageBubble::formatTime() const {

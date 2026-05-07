@@ -583,24 +583,34 @@ Use tray menu to fully quit.</source>
         <translation type="unfinished">Обновить</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="109"/>
+        <location filename="../gui/MessagesTab.cpp" line="114"/>
         <source>Loaded %1 messages</source>
         <translation>Загружено: %1 сообщ.</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="121"/>
+        <location filename="../gui/MessagesTab.cpp" line="126"/>
         <source>No more older messages. Total: %1</source>
         <translation>Старее нет. Всего: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="124"/>
+        <location filename="../gui/MessagesTab.cpp" line="129"/>
         <source>Loaded %1 more (total: %2)</source>
         <translation>Подгружено ещё %1 (всего: %2)</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="147"/>
+        <location filename="../gui/MessagesTab.cpp" line="152"/>
         <source>Loaded %1 messages (last: live update)</source>
         <translation>Загружено %1 сообщ. (последнее: live)</translation>
+    </message>
+    <message>
+        <location filename="../gui/MessagesTab.cpp" line="158"/>
+        <source>Loaded %1 messages (last: edit)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/MessagesTab.cpp" line="164"/>
+        <source>Loaded %1 messages (last: delete)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

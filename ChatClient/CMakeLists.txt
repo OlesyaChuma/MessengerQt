@@ -32,6 +32,8 @@ qt_add_executable(ChatClient
         gui/ChatInputWidget.cpp
         gui/ChatPanel.h
         gui/ChatPanel.cpp
+        gui/MessageEditDialog.h
+        gui/MessageEditDialog.cpp
 )
 
 # Ресурсы (qrc)

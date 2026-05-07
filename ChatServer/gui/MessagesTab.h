@@ -35,6 +35,8 @@ private slots:
 
     // Live updates
     void onNewMessage(const Message& m);
+    void onMessageEdited(const Message& m);
+    void onMessageDeleted(const Message& m);
 
 private:
     void applyFilters();

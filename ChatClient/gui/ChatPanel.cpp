@@ -4,13 +4,17 @@
 #include "TranslationManager.h"
 
 #include "ChatClientCore.h"
+#include "MessageEditDialog.h"
 
+#include <QMessageBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QFrame>
 #include <QJsonArray>
 #include <QCoreApplication>
+#include <QPushButton>
+#include <QAbstractButton>
 
 namespace messenger::client::gui {
 
@@ -71,6 +75,12 @@ void ChatPanel::setupUi() {
 
     connect(_input, &ChatInputWidget::sendRequested,
             this, &ChatPanel::onSendRequested);
+
+    // Контекстное меню Edit/Delete на пузырях
+    connect(_messages, &MessagesView::editRequested,
+            this, &ChatPanel::onEditRequested);
+    connect(_messages, &MessagesView::deleteRequested,
+            this, &ChatPanel::onDeleteRequested);
 
     setStyleSheet(R"(
         QWidget#chatHeader {
@@ -163,7 +173,30 @@ void ChatPanel::onRequestSucceeded(quint32 rid, const QJsonObject& payload) {
         return;
     }
 
-    // 2) Ответ на send_message — добавляем своё сообщение в ленту,
+    // 2) Ответ на edit_message — обновляем существующий пузырь у автора.
+    if (rid == _pendingEditRequest) {
+        _pendingEditRequest = 0;
+        if (payload.contains("message")) {
+            const auto m = messageFromJson(payload.value("message").toObject());
+            const QDateTime at = m.editedAt.isValid()
+                                     ? m.editedAt
+                                     : QDateTime::currentDateTimeUtc();
+            _messages->applyEdited(m.id, m.body, at);
+        }
+        return;
+    }
+
+    // 3) Ответ на delete_message — помечаем существующий пузырь как удалённый.
+    if (rid == _pendingDeleteRequest) {
+        _pendingDeleteRequest = 0;
+        const qint64 mid = payload.value("message_id").toVariant().toLongLong();
+        if (mid > 0) {
+            _messages->applyDeleted(mid, QDateTime::currentDateTimeUtc());
+        }
+        return;
+    }
+
+    // 4) Ответ на send_message — добавляем НОВОЕ сообщение в ленту,
     //    потому что сервер не шлёт push отправителю.
     if (payload.contains("message")) {
         const auto m = messageFromJson(payload.value("message").toObject());
@@ -178,6 +211,17 @@ void ChatPanel::onRequestFailed(quint32 rid, ResultCode /*code*/,
     if (rid == _pendingHistoryRequest) {
         _pendingHistoryRequest = 0;
         _messages->showPlaceholder(tr("Cannot load history: %1").arg(desc));
+        return;
+    }
+    if (rid == _pendingEditRequest) {
+        _pendingEditRequest = 0;
+        QMessageBox::warning(this, tr("Cannot edit message"), desc);
+        return;
+    }
+    if (rid == _pendingDeleteRequest) {
+        _pendingDeleteRequest = 0;
+        QMessageBox::warning(this, tr("Cannot delete message"), desc);
+        return;
     }
 }
 
@@ -231,6 +275,40 @@ void ChatPanel::onLanguageChanged() {
     // в этот момент Qt уже точно применит новые .qm-файлы переводов.
     QMetaObject::invokeMethod(this, &ChatPanel::retranslateUi,
                               Qt::QueuedConnection);
+}
+
+void ChatPanel::onEditRequested(qint64 messageId) {
+    const Message m = _messages->findMessage(messageId);
+    if (m.id == 0) return;
+
+    MessageEditDialog dlg(m.body, this);
+    if (dlg.exec() != QDialog::Accepted) return;
+
+    const QString newText = dlg.newText();
+    if (newText.isEmpty()) {
+        QMessageBox::warning(this, tr("Cannot edit message"),
+                             tr("Message cannot be empty."));
+        return;
+    }
+    if (newText == m.body) return;  // ничего не изменилось
+
+    _pendingEditRequest = _core->sendEdit(messageId, newText);
+}
+
+void ChatPanel::onDeleteRequested(qint64 messageId) {
+    QMessageBox box(this);
+    box.setWindowTitle(tr("Delete message"));
+    box.setIcon(QMessageBox::Question);
+    box.setText(tr("Are you sure you want to delete this message?\n"
+                   "It will be replaced with a placeholder for everyone."));
+
+    QPushButton* yesBtn = box.addButton(tr("Yes"), QMessageBox::YesRole);
+    QPushButton* noBtn  = box.addButton(tr("No"),  QMessageBox::NoRole);
+    box.setDefaultButton(noBtn);
+    box.exec();
+
+    if (box.clickedButton() != static_cast<QAbstractButton*>(yesBtn)) return;
+    _pendingDeleteRequest = _core->sendDelete(messageId);
 }
 
 void ChatPanel::retranslateUi() {

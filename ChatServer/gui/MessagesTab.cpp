@@ -3,6 +3,7 @@
 
 #include "Database.h"
 #include "ChatServer.h"
+#include "TranslationManager.h"
 
 #include <QTableView>
 #include <QHeaderView>
@@ -92,7 +93,28 @@ MessagesTab::MessagesTab(Database* db, ChatServer* server, QWidget* parent)
     connect(_server, &ChatServer::newMessageDispatched,
             this, &MessagesTab::onNewMessage);
 
+    connect(_server, &ChatServer::messageEditedDispatched,
+            this, &MessagesTab::onMessageEdited);
+    connect(_server, &ChatServer::messageDeletedDispatched,
+            this, &MessagesTab::onMessageDeleted);
+
     reload();
+
+    // При смене языка — обновляем заголовки колонок и переводы значений
+    connect(&TranslationManager::instance(),
+            &TranslationManager::languageChanged,
+            this, [this]() {
+                _model->headerDataChanged(Qt::Horizontal, 0,
+                                          MessagesModel::ColCount - 1);
+                if (_model->rowCount() > 0) {
+                    emit _model->dataChanged(
+                        _model->index(0, 0),
+                        _model->index(_model->rowCount() - 1,
+                                      MessagesModel::ColCount - 1));
+                }
+                _summary->setText(tr("Loaded %1 messages")
+                                      .arg(_model->rowCount()));
+            });
 }
 
 void MessagesTab::applyFilters() {
@@ -148,4 +170,15 @@ void MessagesTab::onNewMessage(const Message& m) {
                       .arg(_model->rowCount()));
 }
 
+void MessagesTab::onMessageEdited(const Message& m) {
+    _model->updateMessage(m.id, m.body, m.editedAt);
+    _summary->setText(tr("Loaded %1 messages (last: edit)")
+                          .arg(_model->rowCount()));
+}
+
+void MessagesTab::onMessageDeleted(const Message& m) {
+    _model->markDeleted(m.id, m.deletedAt);
+    _summary->setText(tr("Loaded %1 messages (last: delete)")
+                          .arg(_model->rowCount()));
+}
 } // namespace messenger::server::gui

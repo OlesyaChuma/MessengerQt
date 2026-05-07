@@ -46,6 +46,8 @@ signals:
     void clientAuthenticated(qint64 userId, const QString& login);
     void clientDisconnected(qint64 userId, const QString& login);
     void newMessageDispatched(const Message& msg);
+    void messageEditedDispatched(const Message& msg);
+    void messageDeletedDispatched(const Message& msg);
     void serverMessage(const QString& text);
 
 private slots:

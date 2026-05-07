@@ -46,6 +46,9 @@ private slots:
 
     void onLanguageChanged();
 
+    void onEditRequested(qint64 messageId);
+    void onDeleteRequested(qint64 messageId);
+
 private:
     void setupUi();
     void retranslateUi();
@@ -62,6 +65,9 @@ private:
     qint64  _activePeerId = -1;        // -1 = ничего ещё не выбрано
     QString _activeLabel;
     quint32 _pendingHistoryRequest = 0;
+
+    quint32 _pendingEditRequest = 0;
+    quint32 _pendingDeleteRequest = 0;
 };
 
 } // namespace messenger::client::gui

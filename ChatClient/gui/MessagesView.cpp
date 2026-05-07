@@ -43,6 +43,15 @@ void MessagesView::showPlaceholder(const QString& text) {
     _layout->insertWidget(_layout->count() - 1, _placeholder, 1, Qt::AlignCenter);
 }
 
+Message MessagesView::findMessage(qint64 messageId) const {
+    for (auto* b : _bubbles) {
+        if (b->messageId() == messageId) {
+            return b->message();
+        }
+    }
+    return Message{};
+}
+
 void MessagesView::setMessages(const QList<Message>& messages,
                                qint64 currentUserId) {
     clear();
@@ -53,8 +62,12 @@ void MessagesView::setMessages(const QList<Message>& messages,
         _bubbles.append(b);
         _layout->insertWidget(_layout->count() - 1, b);
     }
-    // После layout-перерасчёта прокручиваем вниз
-    QTimer::singleShot(0, this, [this]() { scrollToBottom(false); });
+    QTimer::singleShot(0, this, [this]() {
+        scrollToBottom(false);
+        QTimer::singleShot(80, this, [this]() {
+            scrollToBottom(false);
+        });
+    });
 }
 
 void MessagesView::appendMessage(const Message& m, qint64 currentUserId) {
@@ -62,17 +75,20 @@ void MessagesView::appendMessage(const Message& m, qint64 currentUserId) {
         _placeholder->deleteLater();
         _placeholder = nullptr;
     }
-    const bool wasAtBottom = isAtBottom();
     const bool mine = (m.senderId == currentUserId);
     auto* b = new MessageBubble(m, mine, _container);
     connectBubble(b);
     _bubbles.append(b);
     _layout->insertWidget(_layout->count() - 1, b);
 
-    // Автоскролл если пользователь смотрел на конец ленты
-    if (wasAtBottom || mine) {
-        QTimer::singleShot(0, this, [this]() { scrollToBottom(true); });
-    }
+    // Автоскролл к последнему сообщению — всегда, и через два этапа,
+    // чтобы layout успел пересчитать высоту нового пузыря.
+    QTimer::singleShot(0, this, [this]() {
+        scrollToBottom(false);
+        QTimer::singleShot(50, this, [this]() {
+            scrollToBottom(false);
+        });
+    });
 }
 
 void MessagesView::applyEdited(qint64 messageId, const QString& newBody,
