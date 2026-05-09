@@ -60,6 +60,3 @@ Desktop.ini
 *.log
 config/server.ini
 data/
-
-# Local development scripts
-update_translations.bat
