@@ -78,23 +78,39 @@
 
 ## Скриншоты
 
-### Сервер
-
-| | |
-|---|---|
-| ![Login](docs/screenshots/server/ru/login.png) | ![Users](docs/screenshots/server/ru/users.png) |
-| Окно входа администратора | Список пользователей |
-| ![Messages](docs/screenshots/server/ru/messages.png) | ![Connection log](docs/screenshots/server/ru/connection_log.png) |
-| Все сообщения с пометками | Журнал подключений |
-
 ### Клиент
 
 | | |
 |---|---|
-| ![Login](docs/screenshots/client/ru/login.png) | ![Main light](docs/screenshots/client/ru/main_light.png) |
-| Окно входа клиента | Главное окно (светлая тема) |
-| ![Main dark](docs/screenshots/client/ru/main_dark.png) | ![Emoji picker](docs/screenshots/client/ru/emoji_picker.png) |
-| Главное окно (тёмная тема) | Picker эмодзи OpenMoji |
+| ![Окно входа](docs/screenshots/client/ru/01_login_light_ru.png) | ![Главное окно](docs/screenshots/client/ru/03_main_light_ru.png) |
+| Окно входа клиента (светлая тема) | Главное окно — список пользователей и чат |
+| ![Тёмная тема](docs/screenshots/client/en/04_main_dark_en.png) | ![Меню Вид](docs/screenshots/client/ru/08_menu_view_dark_ru.png) |
+| Тёмная тема оформления | Меню «Вид» — переключение тем и языков |
+| ![Поиск пользователей](docs/screenshots/client/en/05_search_dark_en.png) | ![Уведомление о сообщении](docs/screenshots/client/en/15_flashing_message.png) |
+| Поиск пользователей | Уведомление в панели задач |
+| ![Редактирование](docs/screenshots/client/ru/13_edit_light_ru.png) | ![Удаление](docs/screenshots/client/ru/16_delete_message_light_ru.png) |
+| Редактирование сообщения | Подтверждение удаления |
+| ![Статус edited/deleted](docs/screenshots/client/en/17_del_edit_status_dark_en.png) | ![Picker эмодзи](docs/screenshots/client/ru/18_emoji_light_ru.png) |
+| Статус «изменено» и «удалено» | Эмодзи picker (OpenMoji) |
+| ![Эмодзи в чате](docs/screenshots/client/ru/20_emoji_wind_light_ru.png) | ![О программе](docs/screenshots/client/ru/09_reference_dark_ru.png) |
+| Эмодзи в окне чата | Диалог «О программе» с атрибуцией OpenMoji |
+
+### Сервер
+
+| | |
+|---|---|
+| ![Окно входа](docs/screenshots/server/ru/14_login_dialog_server_ru.png) | ![Меню Вид](docs/screenshots/server/ru/24_view_ru.png) |
+| Окно входа администратора | Меню «Вид» |
+| ![Пользователи светлая](docs/screenshots/server/ru/15_users_light_ru.png) | ![Пользователи тёмная](docs/screenshots/server/ru/16_users_dark_ru.png) |
+| Список пользователей (светлая тема) | Список пользователей (тёмная тема) |
+| ![Сообщения](docs/screenshots/server/ru/17_messages_light_ru.png) | ![Сообщения тёмная](docs/screenshots/server/ru/18_messages_dark_ru.png) |
+| Все сообщения, в том числе приватные | Сообщения (тёмная тема) |
+| ![Статус изменено/удалено](docs/screenshots/server/ru/26_flags_light_ru.png) | ![Журнал подключений](docs/screenshots/server/ru/19_connection_log_light_ru.png) |
+| Колонка «Статус»: изменено/удалено | Журнал подключений |
+| ![Журнал тёмная](docs/screenshots/server/ru/20_connection_log_dark_ru.png) | ![Настройки](docs/screenshots/server/ru/21_settings_dialog_ru.png) |
+| Журнал подключений (тёмная тема) | Диалог настроек |
+| ![Системный трей](docs/screenshots/server/en/09_system_tray_en.png) | ![О программе](docs/screenshots/server/ru/23_about_ru.png) |
+| Системный трей с уведомлениями | Диалог «О программе» |
 
 ---
 
