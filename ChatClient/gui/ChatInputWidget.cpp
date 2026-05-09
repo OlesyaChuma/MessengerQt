@@ -1,12 +1,18 @@
 #include "ChatInputWidget.h"
+#include "EmojiPicker.h"
+#include "TranslationManager.h"
 
 #include <QHBoxLayout>
 #include <QTextEdit>
 #include <QPushButton>
 #include <QKeyEvent>
 #include <QFontMetrics>
-
-#include "TranslationManager.h"
+#include <QTextCursor>
+#include <QIcon>
+#include <QFile>
+#include <QPixmap>
+#include <QDir>
+#include <QDebug>
 
 namespace messenger::client::gui {
 
@@ -26,6 +32,14 @@ ChatInputWidget::ChatInputWidget(QWidget* parent) : QWidget(parent) {
     _editor->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     _editor->setTabChangesFocus(true);
 
+    _emojiBtn = new QPushButton;
+    _emojiBtn->setObjectName("emojiToggleButton");
+    _emojiBtn->setFixedSize(36, 36);
+    _emojiBtn->setIcon(QIcon(":/client/emoji/1F600.png"));
+    _emojiBtn->setIconSize(QSize(24, 24));
+    _emojiBtn->setToolTip(tr("Insert emoji"));
+    _emojiBtn->setCursor(Qt::PointingHandCursor);
+
     _sendBtn = new QPushButton("➤");
     _sendBtn->setObjectName("sendArrowButton");
     _sendBtn->setFixedSize(36, 36);
@@ -33,7 +47,23 @@ ChatInputWidget::ChatInputWidget(QWidget* parent) : QWidget(parent) {
     _sendBtn->setCursor(Qt::PointingHandCursor);
 
     layout->addWidget(_editor, 1);
-    layout->addWidget(_sendBtn, 0, Qt::AlignVCenter);
+    layout->addWidget(_emojiBtn, 0, Qt::AlignVCenter);
+    layout->addWidget(_sendBtn,  0, Qt::AlignVCenter);
+
+    // Открыть picker по клику на эмодзи-кнопку
+    connect(_emojiBtn, &QPushButton::clicked, this, [this]() {
+        auto* picker = new EmojiPicker(this);
+        picker->setAttribute(Qt::WA_DeleteOnClose);
+        connect(picker, &EmojiPicker::emojiSelected,
+                this, [this](const QString& u) {
+                    _editor->insertPlainText(u);
+                    _editor->setFocus();
+                });
+        // Позиционируем поверх кнопки, направление вверх
+        const QPoint local(0, -picker->sizeHint().height() - 4);
+        picker->move(_emojiBtn->mapToGlobal(local));
+        picker->show();
+    });
 
     updateHeight();
 

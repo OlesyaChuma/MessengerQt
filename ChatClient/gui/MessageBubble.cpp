@@ -12,6 +12,7 @@
 #include <QApplication>
 #include "ThemeManager.h"
 #include "TranslationManager.h"
+#include "EmojiData.h"
 
 namespace messenger::client::gui {
 
@@ -132,38 +133,51 @@ QString MessageBubble::formatTime() const {
 }
 
 void MessageBubble::rebuild() {
+    const bool dark = (ThemeManager::instance().current() == ThemeManager::Theme::Dark);
+
     if (_msg.deletedAt.isValid()) {
         _bodyLbl->setText(tr("[message deleted]"));
         QFont f = _bodyLbl->font();
         f.setItalic(true);
         _bodyLbl->setFont(f);
     } else {
-        _bodyLbl->setText(_msg.body);
+        // Заменяем Unicode-эмодзи на инлайн-картинки OpenMoji
+        QString html = _msg.body.toHtmlEscaped();
+        // Перебираем все известные эмодзи и заменяем их в тексте.
+        for (const auto& cat : emojiCategories()) {
+            for (const auto& e : cat.emojis) {
+                if (e.unicode.isEmpty()) continue;
+                if (html.contains(e.unicode)) {
+                    const QString tag = QString(
+                                            "<img src=\":/client/emoji/%1.png\" width=\"20\" height=\"20\" "
+                                            "style=\"vertical-align: middle;\">").arg(e.code);
+                    html.replace(e.unicode, tag);
+                }
+            }
+        }
+        // Сохраняем переносы строк
+        html.replace("\n", "<br>");
+        _bodyLbl->setText(html);
+        _bodyLbl->setTextFormat(Qt::RichText);
+
         QFont f = _bodyLbl->font();
         f.setItalic(false);
         _bodyLbl->setFont(f);
     }
 
-    const bool dark = (ThemeManager::instance().current() == ThemeManager::Theme::Dark);
-
-    // Цвет текста сообщения
     if (_mine) {
-        // Чёрный текст на голубом — максимальный контраст
         _bodyLbl->setStyleSheet("color: #000000; background: transparent;");
     } else {
-        // Чужие пузыри: чёрный текст на сером в светлой, белый — в тёмной
         _bodyLbl->setStyleSheet(dark
                                     ? "color: #ffffff; background: transparent;"
                                     : "color: #000000; background: transparent;");
     }
 
-    // Имя отправителя — таким же цветом, как имена в списке пользователей
     _senderLbl->setStyleSheet(QString(
                                   "font-size: 12px; font-weight: 700; padding: 0 4px; "
                                   "background: transparent; color: %1;")
                                   .arg(dark ? "#d4d8de" : "#2c3e50"));
 
-    // Время — приглушённый тон, но читаемый
     _metaLbl->setStyleSheet(QString(
                                 "font-size: 11px; padding: 0 4px; "
                                 "background: transparent; color: %1;")

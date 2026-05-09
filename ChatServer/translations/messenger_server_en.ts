@@ -528,77 +528,78 @@ Check Database section in %2 and ensure messenger_db is reachable.</source>
 <context>
     <name>messenger::server::gui::MessagesTab</name>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="30"/>
+        <location filename="../gui/MessagesTab.cpp" line="31"/>
         <source>Type:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="32"/>
+        <location filename="../gui/MessagesTab.cpp" line="33"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="33"/>
+        <location filename="../gui/MessagesTab.cpp" line="34"/>
         <source>Broadcast only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="34"/>
+        <location filename="../gui/MessagesTab.cpp" line="35"/>
         <source>Private only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="39"/>
+        <location filename="../gui/MessagesTab.cpp" line="40"/>
         <source>Sender id:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="41"/>
+        <location filename="../gui/MessagesTab.cpp" line="42"/>
         <source>0 = all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="45"/>
+        <location filename="../gui/MessagesTab.cpp" line="46"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="50"/>
+        <location filename="../gui/MessagesTab.cpp" line="51"/>
         <source>Load older</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="51"/>
+        <location filename="../gui/MessagesTab.cpp" line="52"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="114"/>
+        <location filename="../gui/MessagesTab.cpp" line="115"/>
+        <location filename="../gui/MessagesTab.cpp" line="131"/>
         <source>Loaded %1 messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="126"/>
+        <location filename="../gui/MessagesTab.cpp" line="143"/>
         <source>No more older messages. Total: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="129"/>
+        <location filename="../gui/MessagesTab.cpp" line="146"/>
         <source>Loaded %1 more (total: %2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="152"/>
+        <location filename="../gui/MessagesTab.cpp" line="169"/>
         <source>Loaded %1 messages (last: live update)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="158"/>
+        <location filename="../gui/MessagesTab.cpp" line="175"/>
         <source>Loaded %1 messages (last: edit)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="164"/>
+        <location filename="../gui/MessagesTab.cpp" line="181"/>
         <source>Loaded %1 messages (last: delete)</source>
         <translation type="unfinished"></translation>
     </message>

@@ -22,7 +22,7 @@ MainWindow::MainWindow(ChatClientCore* core, QWidget* parent)
     : QMainWindow(parent), _core(core) {
     setWindowTitle(tr("MessengerQt — %1").arg(_core->currentDisplayName()));
     setWindowIcon(QIcon(":/client/icons/app.svg"));
-    resize(960, 640);
+    resize(960, 460);
 
     setupUi();
     setupMenu();
@@ -188,12 +188,17 @@ void MainWindow::retranslateUi() {
 
 void MainWindow::onAboutTriggered() {
     QMessageBox::about(this, tr("About MessengerQt"),
-        tr("<h3>MessengerQt — Client</h3>"
-           "<p>Version %1</p>"
-           "<p>Multi-user network messenger.<br>"
-           "Final qualifying project — C++ developer programme.</p>"
-           "<p>Built with Qt 6.5, MSVC 2022.</p>")
-        .arg(QApplication::applicationVersion()));
+                       tr("<h3>MessengerQt — Client</h3>"
+                          "<p>Version %1</p>"
+                          "<p>Multi-user network messenger.<br>"
+                          "Final qualifying project — C++ developer programme.</p>"
+                          "<p>Built with Qt 6.5, MSVC 2022.</p>"
+                          "<hr>"
+                          "<p><small>Emoji designed by "
+                          "<a href='https://openmoji.org/'>OpenMoji</a> — "
+                          "the open-source emoji and icon project. "
+                          "License: CC BY-SA 4.0</small></p>")
+                           .arg(QApplication::applicationVersion()));
 }
 
 void MainWindow::onCoreState(ChatClientCore::State,

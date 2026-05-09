@@ -538,77 +538,78 @@ Use tray menu to fully quit.</source>
 <context>
     <name>messenger::server::gui::MessagesTab</name>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="30"/>
+        <location filename="../gui/MessagesTab.cpp" line="31"/>
         <source>Type:</source>
         <translation>Тип:</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="32"/>
+        <location filename="../gui/MessagesTab.cpp" line="33"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="33"/>
+        <location filename="../gui/MessagesTab.cpp" line="34"/>
         <source>Broadcast only</source>
         <translation>Только общий чат</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="34"/>
+        <location filename="../gui/MessagesTab.cpp" line="35"/>
         <source>Private only</source>
         <translation>Только приватные</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="39"/>
+        <location filename="../gui/MessagesTab.cpp" line="40"/>
         <source>Sender id:</source>
         <translation>ID отправителя:</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="41"/>
+        <location filename="../gui/MessagesTab.cpp" line="42"/>
         <source>0 = all</source>
         <translation>0 = все</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="45"/>
+        <location filename="../gui/MessagesTab.cpp" line="46"/>
         <source>Apply</source>
         <translation>Применить</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="50"/>
+        <location filename="../gui/MessagesTab.cpp" line="51"/>
         <source>Load older</source>
         <translation>Загрузить старые</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="51"/>
+        <location filename="../gui/MessagesTab.cpp" line="52"/>
         <source>Refresh</source>
         <translation type="unfinished">Обновить</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="114"/>
+        <location filename="../gui/MessagesTab.cpp" line="115"/>
+        <location filename="../gui/MessagesTab.cpp" line="131"/>
         <source>Loaded %1 messages</source>
         <translation>Загружено: %1 сообщ.</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="126"/>
+        <location filename="../gui/MessagesTab.cpp" line="143"/>
         <source>No more older messages. Total: %1</source>
         <translation>Старее нет. Всего: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="129"/>
+        <location filename="../gui/MessagesTab.cpp" line="146"/>
         <source>Loaded %1 more (total: %2)</source>
         <translation>Подгружено ещё %1 (всего: %2)</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="152"/>
+        <location filename="../gui/MessagesTab.cpp" line="169"/>
         <source>Loaded %1 messages (last: live update)</source>
         <translation>Загружено %1 сообщ. (последнее: live)</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="158"/>
+        <location filename="../gui/MessagesTab.cpp" line="175"/>
         <source>Loaded %1 messages (last: edit)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="164"/>
+        <location filename="../gui/MessagesTab.cpp" line="181"/>
         <source>Loaded %1 messages (last: delete)</source>
         <translation type="unfinished"></translation>
     </message>

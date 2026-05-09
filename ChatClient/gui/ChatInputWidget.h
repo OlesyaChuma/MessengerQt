@@ -35,6 +35,7 @@ private:
 
     QTextEdit*   _editor = nullptr;
     QPushButton* _sendBtn = nullptr;
+    QPushButton* _emojiBtn = nullptr;
 };
 
 } // namespace messenger::client::gui

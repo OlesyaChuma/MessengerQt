@@ -16,7 +16,7 @@ LoginDialog::LoginDialog(AuthService* auth, QWidget* parent)
     : QDialog(parent), _auth(auth) {
     setWindowTitle(tr("MessengerQt Server — Login"));
     setModal(true);
-    setFixedSize(420, 360);
+    setFixedSize(420, 300);
     setupUi();
     setupStyles();
 }

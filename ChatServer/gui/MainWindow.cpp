@@ -37,7 +37,7 @@ MainWindow::MainWindow(Database* db, AuthService* auth, ChatServer* server,
       _cfg(cfg), _configPath(configPath) {
     setWindowTitle(tr("MessengerQt — Server Administration"));
     setWindowIcon(QIcon(":/server/icons/server.svg"));
-    resize(1100, 720);
+    resize(900, 620);
 
     setupUi();
     setupMenu();

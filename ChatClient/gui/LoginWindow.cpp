@@ -21,7 +21,8 @@ LoginWindow::LoginWindow(ChatClientCore* core, QWidget* parent)
     : QDialog(parent), _core(core) {
     setWindowTitle(tr("MessengerQt — Sign in"));
     setModal(true);
-    setMinimumWidth(440);
+    setFixedSize(440, 360);
+    setSizeGripEnabled(false);
 
     setupUi();
     loadSavedSettings();
@@ -42,8 +43,8 @@ LoginWindow::LoginWindow(ChatClientCore* core, QWidget* parent)
 
 void LoginWindow::setupUi() {
     auto* root = new QVBoxLayout(this);
-    root->setContentsMargins(28, 24, 28, 24);
-    root->setSpacing(14);
+    root->setContentsMargins(28, 12, 28, 16);
+    root->setSpacing(8);
 
     // ---------- Top bar (theme + language) ----------
     auto* topBar = new QHBoxLayout;
@@ -89,7 +90,8 @@ void LoginWindow::setupUi() {
     // Login page
     auto* loginPage = new QWidget;
     auto* loginForm = new QFormLayout(loginPage);
-    loginForm->setSpacing(10);
+    loginForm->setSpacing(6);
+    loginForm->setContentsMargins(0, 0, 0, 0);
 
     _loginEdit = new QLineEdit;
     _loginEdit->setPlaceholderText(tr("your login"));
@@ -122,7 +124,8 @@ void LoginWindow::setupUi() {
     // Register page
     auto* regPage = new QWidget;
     auto* regForm = new QFormLayout(regPage);
-    regForm->setSpacing(10);
+    regForm->setSpacing(6);
+    regForm->setContentsMargins(0, 0, 0, 0);
 
     _regLoginEdit = new QLineEdit;
     _regLoginEdit->setPlaceholderText(tr("choose a unique login"));
@@ -193,10 +196,10 @@ void LoginWindow::setupUi() {
             this, &LoginWindow::onSelectLanguage);
 
     setStyleSheet(R"(
-        QLabel#titleLabel { font-size: 22px; font-weight: 600; padding: 8px 0; }
+        QLabel#titleLabel { font-size: 20px; font-weight: 600; padding: 0 0 4px 0; }
         QLabel#errorLabel { color: #c0392b; font-weight: 500; padding: 4px 0; }
         QLabel#statusLabel { color: #7f8c8d; padding: 2px 0; }
-        QPushButton#primaryButton { min-height: 32px; padding: 4px 18px; font-weight: 600; }
+        QPushButton#primaryButton { min-height: 30px; padding: 4px 20px; font-weight: 600; }
         QPushButton#flatButton { background: transparent; border: none; color: #2980b9;
                                  padding: 4px 8px; }
         QPushButton#flatButton:hover { color: #1b5a85; text-decoration: underline; }

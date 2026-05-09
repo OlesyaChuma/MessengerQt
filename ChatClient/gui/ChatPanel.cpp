@@ -115,6 +115,17 @@ void ChatPanel::setupUi() {
         }
         QTextEdit#chatInputEditor:focus { border-color: #5dade2; }
 
+        /* Кнопка вызова эмодзи-picker'а */
+        QPushButton#emojiToggleButton {
+            background-color: transparent;
+            border: none;
+            font-size: 18px;
+            border-radius: 18px;
+        }
+        QPushButton#emojiToggleButton:hover {
+            background-color: palette(alternate-base);
+        }
+
         /* Круглая кнопка отправки со стрелкой */
         QPushButton#sendArrowButton {
             background-color: #5dade2;
