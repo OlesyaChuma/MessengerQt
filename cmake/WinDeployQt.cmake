@@ -1,15 +1,18 @@
 # Хелпер для авто-деплоя Qt DLL рядом с exe на Windows.
+# На Linux/macOS функции остаются доступными, но ничего не делают —
+# деплой Qt-зависимостей делается через системные пакеты или AppImage.
 
 if(WIN32)
     find_program(WINDEPLOYQT_EXECUTABLE windeployqt
         HINTS "${CMAKE_PREFIX_PATH}/bin" "$ENV{QTDIR}/bin"
     )
-
     if(WINDEPLOYQT_EXECUTABLE)
         message(STATUS "windeployqt found: ${WINDEPLOYQT_EXECUTABLE}")
     else()
         message(WARNING "windeployqt not found - Qt DLLs will NOT be deployed automatically")
     endif()
+else()
+    message(STATUS "Non-Windows platform - skipping windeployqt setup")
 endif()
 
 # Стандартный деплой для GUI/exe-таргетов

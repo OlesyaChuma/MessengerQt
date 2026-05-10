@@ -27,6 +27,9 @@ public:
 public slots:
     void reload();
 
+protected:
+    void changeEvent(QEvent* e) override;
+
 private slots:
     void onFilterChanged();
     void onLoadOlderClicked();
@@ -40,6 +43,7 @@ private slots:
 
 private:
     void applyFilters();
+    void retranslateUi();
 
     Database*   _db = nullptr;
     ChatServer* _server = nullptr;
@@ -53,6 +57,8 @@ private:
     QPushButton* _refreshBtn = nullptr;
     QPushButton* _loadOlderBtn = nullptr;
     QLabel*      _summary = nullptr;
+    QLabel*     _typeLabel = nullptr;
+    QLabel*     _senderLabel = nullptr;
 };
 
 } // namespace messenger::server::gui

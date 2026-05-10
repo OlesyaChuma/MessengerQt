@@ -6,7 +6,7 @@
     <message>
         <location filename="../main.cpp" line="67"/>
         <source>Database connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка подключения к базе данных</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="68"/>
@@ -14,18 +14,35 @@
 %1
 
 Check Database section in %2 and ensure messenger_db is reachable.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть базу данных Postgres:
+%1
+
+Проверьте секцию Database в %2 и убедитесь, что messenger_db доступна.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="87"/>
         <source>Server start failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось запустить сервер</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="88"/>
         <source>Cannot start TCP listener on %1:%2:
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось запустить TCP-слушатель на %1:%2:
+%3</translation>
+    </message>
+</context>
+<context>
+    <name>messenger::server::ChatServer</name>
+    <message>
+        <location filename="../core/ChatServer.cpp" line="33"/>
+        <source>Server is listening on %1:%2</source>
+        <translation>Сервер слушает на %1:%2</translation>
+    </message>
+    <message>
+        <location filename="../core/ChatServer.cpp" line="123"/>
+        <source>User logged in: %1 (id=%2)</source>
+        <translation>Пользователь вошёл: %1 (id=%2)</translation>
     </message>
 </context>
 <context>
@@ -61,11 +78,6 @@ Check Database section in %2 and ensure messenger_db is reachable.</source>
         <translation>Пользователь сможет переподключиться сразу, но текущая сессия будет прервана.</translation>
     </message>
     <message>
-        <location filename="../gui/BanDialog.cpp" line="42"/>
-        <source>Reason:</source>
-        <translation>Причина:</translation>
-    </message>
-    <message>
         <location filename="../gui/BanDialog.cpp" line="40"/>
         <source>Why are you banning this user?</source>
         <translation>Причина блокировки</translation>
@@ -76,14 +88,19 @@ Check Database section in %2 and ensure messenger_db is reachable.</source>
         <translation>Причина (необязательно)</translation>
     </message>
     <message>
+        <location filename="../gui/BanDialog.cpp" line="42"/>
+        <source>Reason:</source>
+        <translation>Причина:</translation>
+    </message>
+    <message>
         <location filename="../gui/BanDialog.cpp" line="48"/>
         <source>Ban</source>
-        <translation type="unfinished">Забанить</translation>
+        <translation>Забанить</translation>
     </message>
     <message>
         <location filename="../gui/BanDialog.cpp" line="48"/>
         <source>Kick</source>
-        <translation type="unfinished">Отключить</translation>
+        <translation>Отключить</translation>
     </message>
     <message>
         <location filename="../gui/BanDialog.cpp" line="61"/>
@@ -101,7 +118,7 @@ Check Database section in %2 and ensure messenger_db is reachable.</source>
     <message>
         <location filename="../gui/ConnectionLogModel.cpp" line="149"/>
         <source>Time</source>
-        <translation type="unfinished">Время</translation>
+        <translation>Время</translation>
     </message>
     <message>
         <location filename="../gui/ConnectionLogModel.cpp" line="150"/>
@@ -127,57 +144,58 @@ Check Database section in %2 and ensure messenger_db is reachable.</source>
 <context>
     <name>messenger::server::gui::ConnectionLogTab</name>
     <message>
-        <location filename="../gui/ConnectionLogTab.cpp" line="30"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="159"/>
         <source>Category:</source>
         <translation>Категория:</translation>
     </message>
     <message>
-        <location filename="../gui/ConnectionLogTab.cpp" line="32"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="167"/>
         <source>All events</source>
         <translation>Все события</translation>
     </message>
     <message>
-        <location filename="../gui/ConnectionLogTab.cpp" line="33"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="168"/>
         <source>Logins only</source>
         <translation>Только входы</translation>
     </message>
     <message>
-        <location filename="../gui/ConnectionLogTab.cpp" line="34"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="169"/>
         <source>Security events</source>
         <translation>Безопасность</translation>
     </message>
     <message>
-        <location filename="../gui/ConnectionLogTab.cpp" line="35"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="170"/>
         <source>Sanctions (ban/kick/unban)</source>
         <translation>Санкции (бан/кик/разбан)</translation>
     </message>
     <message>
-        <location filename="../gui/ConnectionLogTab.cpp" line="40"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="160"/>
         <source>User:</source>
         <translation>Пользователь:</translation>
     </message>
     <message>
-        <location filename="../gui/ConnectionLogTab.cpp" line="42"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="161"/>
         <source>login or empty</source>
         <translation>логин или пусто</translation>
     </message>
     <message>
-        <location filename="../gui/ConnectionLogTab.cpp" line="46"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="162"/>
         <source>Apply</source>
-        <translation type="unfinished">Применить</translation>
+        <translation>Применить</translation>
     </message>
     <message>
-        <location filename="../gui/ConnectionLogTab.cpp" line="51"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="163"/>
         <source>Refresh</source>
-        <translation type="unfinished">Обновить</translation>
+        <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../gui/ConnectionLogTab.cpp" line="105"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="109"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="183"/>
         <source>Loaded %1 events</source>
         <translation>Загружено: %1 событий</translation>
     </message>
     <message>
-        <location filename="../gui/ConnectionLogTab.cpp" line="144"/>
+        <location filename="../gui/ConnectionLogTab.cpp" line="148"/>
         <source>Loaded %1 events (live)</source>
         <translation>Загружено: %1 событий (live)</translation>
     </message>
@@ -212,15 +230,15 @@ Check Database section in %2 and ensure messenger_db is reachable.</source>
         <translation>admin</translation>
     </message>
     <message>
-        <location filename="../gui/LoginDialog.cpp" line="61"/>
-        <source>password</source>
-        <translation>пароль</translation>
-    </message>
-    <message>
         <location filename="../gui/LoginDialog.cpp" line="57"/>
         <location filename="../gui/LoginDialog.cpp" line="79"/>
         <source>Login:</source>
         <translation>Логин:</translation>
+    </message>
+    <message>
+        <location filename="../gui/LoginDialog.cpp" line="61"/>
+        <source>password</source>
+        <translation>пароль</translation>
     </message>
     <message>
         <location filename="../gui/LoginDialog.cpp" line="62"/>
@@ -308,9 +326,27 @@ Check Database section in %2 and ensure messenger_db is reachable.</source>
     <name>messenger::server::gui::MainWindow</name>
     <message>
         <location filename="../gui/MainWindow.cpp" line="38"/>
-        <location filename="../gui/MainWindow.cpp" line="323"/>
+        <location filename="../gui/MainWindow.cpp" line="328"/>
         <source>MessengerQt — Server Administration</source>
         <translation>MessengerQt — Администрирование сервера</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.cpp" line="73"/>
+        <location filename="../gui/MainWindow.cpp" line="339"/>
+        <source>Users</source>
+        <translation>Пользователи</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.cpp" line="74"/>
+        <location filename="../gui/MainWindow.cpp" line="340"/>
+        <source>Messages</source>
+        <translation>Сообщения</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.cpp" line="75"/>
+        <location filename="../gui/MainWindow.cpp" line="341"/>
+        <source>Connection log</source>
+        <translation>Журнал подключений</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.cpp" line="81"/>
@@ -363,137 +399,131 @@ Check Database section in %2 and ensure messenger_db is reachable.</source>
         <translation>&amp;О программе...</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="179"/>
-        <source>About MessengerQt Server</source>
-        <translation>О программе MessengerQt Server</translation>
-    </message>
-    <message>
-        <location filename="../gui/MainWindow.cpp" line="180"/>
-        <source>&lt;h3&gt;MessengerQt — Server Administration&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt 6.5, PostgreSQL, MSVC 2022.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;MessengerQt — Администрирование сервера&lt;/h3&gt;&lt;p&gt;Версия %1&lt;/p&gt;&lt;p&gt;Многопользовательский сетевой мессенджер.&lt;br&gt;Итоговая аттестация по программе «C++ разработчик».&lt;/p&gt;&lt;p&gt;Собран на Qt 6.5, PostgreSQL, MSVC 2022.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../gui/MainWindow.cpp" line="73"/>
-        <location filename="../gui/MainWindow.cpp" line="332"/>
-        <source>Users</source>
-        <translation>Пользователи</translation>
-    </message>
-    <message>
-        <location filename="../gui/MainWindow.cpp" line="74"/>
-        <location filename="../gui/MainWindow.cpp" line="333"/>
-        <source>Messages</source>
-        <translation>Сообщения</translation>
-    </message>
-    <message>
-        <location filename="../gui/MainWindow.cpp" line="75"/>
-        <location filename="../gui/MainWindow.cpp" line="334"/>
-        <source>Connection log</source>
-        <translation>Журнал подключений</translation>
-    </message>
-    <message>
         <location filename="../gui/MainWindow.cpp" line="129"/>
+        <location filename="../gui/MainWindow.cpp" line="331"/>
         <source>DB: connected</source>
         <translation>БД: подключено</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.cpp" line="135"/>
+        <location filename="../gui/MainWindow.cpp" line="332"/>
         <source>Server: starting...</source>
         <translation>Сервер: запуск...</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="140"/>
+        <location filename="../gui/MainWindow.cpp" line="138"/>
+        <source>Server is listening on %1:%2</source>
+        <translation type="unfinished">Сервер слушает на %1:%2</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.cpp" line="145"/>
         <source>Online: 0</source>
         <translation>Онлайн: 0</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="224"/>
-        <source>Online: %1</source>
-        <translation>Онлайн: %1</translation>
-    </message>
-    <message>
-        <location filename="../gui/MainWindow.cpp" line="144"/>
-        <location filename="../gui/MainWindow.cpp" line="324"/>
+        <location filename="../gui/MainWindow.cpp" line="149"/>
+        <location filename="../gui/MainWindow.cpp" line="329"/>
         <source>Signed in as: %1</source>
         <translation>Вход выполнен: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="198"/>
+        <location filename="../gui/MainWindow.cpp" line="184"/>
+        <source>About MessengerQt Server</source>
+        <translation>О программе MessengerQt Server</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.cpp" line="185"/>
+        <source>&lt;h3&gt;MessengerQt — Server Administration&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt 6.5, PostgreSQL, MSVC 2022.&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;MessengerQt — Администрирование сервера&lt;/h3&gt;&lt;p&gt;Версия %1&lt;/p&gt;&lt;p&gt;Многопользовательский сетевой мессенджер.&lt;br&gt;Итоговая аттестация по программе «C++ разработчик».&lt;/p&gt;&lt;p&gt;Собран на Qt 6.5, PostgreSQL, MSVC 2022.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.cpp" line="203"/>
         <source>New connection from %1</source>
         <translation>Новое подключение с %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="202"/>
+        <location filename="../gui/MainWindow.cpp" line="207"/>
         <source>User logged in: %1 (id=%2)</source>
         <translation>Вход пользователя: %1 (id=%2)</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="213"/>
-        <source>User logged out: %1</source>
-        <translation>Выход пользователя: %1</translation>
-    </message>
-    <message>
-        <location filename="../gui/MainWindow.cpp" line="205"/>
+        <location filename="../gui/MainWindow.cpp" line="210"/>
         <source>User connected</source>
         <translation>Пользователь подключился</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="206"/>
+        <location filename="../gui/MainWindow.cpp" line="211"/>
         <source>%1 logged in</source>
         <translation>%1 вошёл</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="247"/>
+        <location filename="../gui/MainWindow.cpp" line="218"/>
+        <source>User logged out: %1</source>
+        <translation>Выход пользователя: %1</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.cpp" line="229"/>
+        <source>Online: %1</source>
+        <translation>Онлайн: %1</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.cpp" line="252"/>
         <source>Close server</source>
         <translation>Закрыть сервер</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="249"/>
+        <location filename="../gui/MainWindow.cpp" line="254"/>
         <source>&lt;b&gt;Close MessengerQt Server?&lt;/b&gt;</source>
         <translation>&lt;b&gt;Закрыть MessengerQt Server?&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="250"/>
+        <location filename="../gui/MainWindow.cpp" line="255"/>
         <source>If you choose &lt;b&gt;Quit&lt;/b&gt;, the server will stop and all connected clients will be disconnected.&lt;br&gt;&lt;br&gt;If you choose &lt;b&gt;Hide to tray&lt;/b&gt;, the server keeps running in the background and you can restore the window from the system tray icon.</source>
         <translation>Если выбрать &lt;b&gt;Остановить&lt;/b&gt;, сервер прекратит работу и все клиенты будут отключены.&lt;br&gt;&lt;br&gt;Если выбрать &lt;b&gt;Скрыть в трей&lt;/b&gt;, сервер продолжит работу в фоне, окно можно вернуть через иконку в трее.</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="257"/>
+        <location filename="../gui/MainWindow.cpp" line="262"/>
         <source>Quit server</source>
-        <translation>Остановить</translation>
+        <translation>Остановить сервер</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="259"/>
+        <location filename="../gui/MainWindow.cpp" line="264"/>
         <source>Hide to tray</source>
         <translation>Скрыть в трей</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="264"/>
+        <location filename="../gui/MainWindow.cpp" line="269"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="307"/>
+        <location filename="../gui/MainWindow.cpp" line="312"/>
         <source>Select language</source>
         <translation>Выбор языка</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="308"/>
+        <location filename="../gui/MainWindow.cpp" line="313"/>
         <source>Interface language:</source>
         <translation>Язык интерфейса:</translation>
-    </message>
-    <message>
-        <source>MessengerQt Server</source>
-        <translation type="vanished">MessengerQt Server</translation>
-    </message>
-    <message>
-        <source>Server keeps running in the system tray.
-Use tray menu to fully quit.</source>
-        <translation type="vanished">Сервер продолжает работать в системном трее.
-Для полного выхода используйте меню трея.</translation>
     </message>
 </context>
 <context>
     <name>messenger::server::gui::MessagesModel</name>
+    <message>
+        <location filename="../gui/MessagesModel.cpp" line="110"/>
+        <source>(broadcast)</source>
+        <translation>(общий чат)</translation>
+    </message>
+    <message>
+        <location filename="../gui/MessagesModel.cpp" line="116"/>
+        <source>edited</source>
+        <translation>изменено</translation>
+    </message>
+    <message>
+        <location filename="../gui/MessagesModel.cpp" line="117"/>
+        <source>deleted</source>
+        <translation>удалено</translation>
+    </message>
     <message>
         <location filename="../gui/MessagesModel.cpp" line="151"/>
         <source>Time</source>
@@ -519,99 +549,84 @@ Use tray menu to fully quit.</source>
         <source>Flags</source>
         <translation>Флаги</translation>
     </message>
-    <message>
-        <location filename="../gui/MessagesModel.cpp" line="110"/>
-        <source>(broadcast)</source>
-        <translation>(общий)</translation>
-    </message>
-    <message>
-        <location filename="../gui/MessagesModel.cpp" line="116"/>
-        <source>edited</source>
-        <translation>изменено</translation>
-    </message>
-    <message>
-        <location filename="../gui/MessagesModel.cpp" line="117"/>
-        <source>deleted</source>
-        <translation>удалено</translation>
-    </message>
 </context>
 <context>
     <name>messenger::server::gui::MessagesTab</name>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="31"/>
+        <location filename="../gui/MessagesTab.cpp" line="180"/>
         <source>Type:</source>
         <translation>Тип:</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="33"/>
+        <location filename="../gui/MessagesTab.cpp" line="189"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="34"/>
+        <location filename="../gui/MessagesTab.cpp" line="190"/>
         <source>Broadcast only</source>
         <translation>Только общий чат</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="35"/>
+        <location filename="../gui/MessagesTab.cpp" line="191"/>
         <source>Private only</source>
         <translation>Только приватные</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="40"/>
+        <location filename="../gui/MessagesTab.cpp" line="181"/>
         <source>Sender id:</source>
         <translation>ID отправителя:</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="42"/>
+        <location filename="../gui/MessagesTab.cpp" line="182"/>
         <source>0 = all</source>
         <translation>0 = все</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="46"/>
+        <location filename="../gui/MessagesTab.cpp" line="183"/>
         <source>Apply</source>
         <translation>Применить</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="51"/>
+        <location filename="../gui/MessagesTab.cpp" line="184"/>
         <source>Load older</source>
         <translation>Загрузить старые</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="52"/>
+        <location filename="../gui/MessagesTab.cpp" line="185"/>
         <source>Refresh</source>
-        <translation type="unfinished">Обновить</translation>
+        <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="115"/>
-        <location filename="../gui/MessagesTab.cpp" line="131"/>
+        <location filename="../gui/MessagesTab.cpp" line="118"/>
+        <location filename="../gui/MessagesTab.cpp" line="204"/>
         <source>Loaded %1 messages</source>
         <translation>Загружено: %1 сообщ.</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="143"/>
+        <location filename="../gui/MessagesTab.cpp" line="130"/>
         <source>No more older messages. Total: %1</source>
         <translation>Старее нет. Всего: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="146"/>
+        <location filename="../gui/MessagesTab.cpp" line="133"/>
         <source>Loaded %1 more (total: %2)</source>
         <translation>Подгружено ещё %1 (всего: %2)</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="169"/>
+        <location filename="../gui/MessagesTab.cpp" line="156"/>
         <source>Loaded %1 messages (last: live update)</source>
         <translation>Загружено %1 сообщ. (последнее: live)</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="175"/>
+        <location filename="../gui/MessagesTab.cpp" line="162"/>
         <source>Loaded %1 messages (last: edit)</source>
-        <translation type="unfinished"></translation>
+        <translation>Загружено %1 сообщ. (последнее: изменение)</translation>
     </message>
     <message>
-        <location filename="../gui/MessagesTab.cpp" line="181"/>
+        <location filename="../gui/MessagesTab.cpp" line="168"/>
         <source>Loaded %1 messages (last: delete)</source>
-        <translation type="unfinished"></translation>
+        <translation>Загружено %1 сообщ. (последнее: удаление)</translation>
     </message>
 </context>
 <context>
@@ -689,7 +704,7 @@ Use tray menu to fully quit.</source>
     <message>
         <location filename="../gui/SettingsDialog.cpp" line="64"/>
         <source>Log level:</source>
-        <translation>Уровень:</translation>
+        <translation>Уровень логирования:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsDialog.cpp" line="68"/>
@@ -767,7 +782,7 @@ Online: %1</source>
     <message>
         <location filename="../gui/UsersModel.cpp" line="121"/>
         <source>Display name</source>
-        <translation>Имя</translation>
+        <translation>Отображаемое имя</translation>
     </message>
     <message>
         <location filename="../gui/UsersModel.cpp" line="122"/>
@@ -782,7 +797,7 @@ Online: %1</source>
     <message>
         <location filename="../gui/UsersModel.cpp" line="124"/>
         <source>Banned</source>
-        <translation>Бан</translation>
+        <translation>Забанен</translation>
     </message>
     <message>
         <location filename="../gui/UsersModel.cpp" line="125"/>
@@ -793,97 +808,97 @@ Online: %1</source>
 <context>
     <name>messenger::server::gui::UsersTab</name>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="30"/>
+        <location filename="../gui/UsersTab.cpp" line="226"/>
         <source>Refresh</source>
         <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="31"/>
+        <location filename="../gui/UsersTab.cpp" line="227"/>
         <source>Kick</source>
         <translation>Отключить</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="32"/>
+        <location filename="../gui/UsersTab.cpp" line="228"/>
         <source>Ban</source>
         <translation>Забанить</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="33"/>
+        <location filename="../gui/UsersTab.cpp" line="229"/>
         <source>Unban</source>
-        <translation>Разбанить</translation>
+        <translation>Снять бан</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="111"/>
+        <location filename="../gui/UsersTab.cpp" line="113"/>
         <source>Total users: %1   |   Online: %2   |   Banned: %3</source>
         <translation>Всего: %1   |   Онлайн: %2   |   Забанено: %3</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="176"/>
+        <location filename="../gui/UsersTab.cpp" line="178"/>
         <source>Kicked</source>
         <translation>Отключён</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="177"/>
+        <location filename="../gui/UsersTab.cpp" line="179"/>
         <source>User &apos;%1&apos; has been disconnected.</source>
         <translation>Пользователь «%1» отключён.</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="179"/>
+        <location filename="../gui/UsersTab.cpp" line="181"/>
         <source>Kick failed</source>
         <translation>Ошибка отключения</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="180"/>
+        <location filename="../gui/UsersTab.cpp" line="182"/>
         <source>Cannot kick &apos;%1&apos; (perhaps user is offline?).</source>
         <translation>Не удалось отключить «%1» (возможно, не в сети).</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="191"/>
+        <location filename="../gui/UsersTab.cpp" line="193"/>
         <source>Banned</source>
         <translation>Забанен</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="192"/>
+        <location filename="../gui/UsersTab.cpp" line="194"/>
         <source>User &apos;%1&apos; is now blocked.</source>
         <translation>Пользователь «%1» заблокирован.</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="194"/>
+        <location filename="../gui/UsersTab.cpp" line="196"/>
         <source>Ban failed</source>
         <translation>Ошибка бана</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="195"/>
+        <location filename="../gui/UsersTab.cpp" line="197"/>
         <source>Cannot ban &apos;%1&apos;.</source>
         <translation>Не удалось забанить «%1».</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="203"/>
+        <location filename="../gui/UsersTab.cpp" line="205"/>
         <source>Unban user</source>
         <translation>Снять бан</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="204"/>
+        <location filename="../gui/UsersTab.cpp" line="206"/>
         <source>Remove ban from &apos;%1&apos;?</source>
         <translation>Снять бан с «%1»?</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="207"/>
+        <location filename="../gui/UsersTab.cpp" line="209"/>
         <source>Unbanned</source>
         <translation>Бан снят</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="208"/>
+        <location filename="../gui/UsersTab.cpp" line="210"/>
         <source>User &apos;%1&apos; is unblocked.</source>
         <translation>Пользователь «%1» разблокирован.</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="210"/>
+        <location filename="../gui/UsersTab.cpp" line="212"/>
         <source>Unban failed</source>
         <translation>Ошибка снятия бана</translation>
     </message>
     <message>
-        <location filename="../gui/UsersTab.cpp" line="211"/>
+        <location filename="../gui/UsersTab.cpp" line="213"/>
         <source>Cannot unban &apos;%1&apos;.</source>
         <translation>Не удалось снять бан с «%1».</translation>
     </message>

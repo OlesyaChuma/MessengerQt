@@ -3,7 +3,6 @@
 
 #include "Database.h"
 #include "ChatServer.h"
-#include "TranslationManager.h"
 
 #include <QTableView>
 #include <QHeaderView>
@@ -14,6 +13,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QScrollBar>
+#include <QEvent>
 
 namespace messenger::server::gui {
 
@@ -28,28 +28,29 @@ MessagesTab::MessagesTab(Database* db, ChatServer* server, QWidget* parent)
     auto* toolbar = new QHBoxLayout;
     toolbar->setSpacing(8);
 
-    toolbar->addWidget(new QLabel(tr("Type:")));
+    _typeLabel = new QLabel;
+    toolbar->addWidget(_typeLabel);
     _typeCombo = new QComboBox;
-    _typeCombo->addItem(tr("All"));
-    _typeCombo->addItem(tr("Broadcast only"));
-    _typeCombo->addItem(tr("Private only"));
+    _typeCombo->addItem(QString());
+    _typeCombo->addItem(QString());
+    _typeCombo->addItem(QString());
     toolbar->addWidget(_typeCombo);
 
     toolbar->addSpacing(12);
 
-    toolbar->addWidget(new QLabel(tr("Sender id:")));
+    _senderLabel = new QLabel;
+    toolbar->addWidget(_senderLabel);
     _senderEdit = new QLineEdit;
-    _senderEdit->setPlaceholderText(tr("0 = all"));
     _senderEdit->setMaximumWidth(80);
     toolbar->addWidget(_senderEdit);
 
-    _applySenderBtn = new QPushButton(tr("Apply"));
+    _applySenderBtn = new QPushButton;
     toolbar->addWidget(_applySenderBtn);
 
     toolbar->addStretch(1);
 
-    _loadOlderBtn = new QPushButton(tr("Load older"));
-    _refreshBtn   = new QPushButton(tr("Refresh"));
+    _loadOlderBtn = new QPushButton;
+    _refreshBtn   = new QPushButton;
     toolbar->addWidget(_loadOlderBtn);
     toolbar->addWidget(_refreshBtn);
 
@@ -100,21 +101,7 @@ MessagesTab::MessagesTab(Database* db, ChatServer* server, QWidget* parent)
 
     reload();
 
-    // При смене языка — обновляем заголовки колонок и переводы значений
-    connect(&TranslationManager::instance(),
-            &TranslationManager::languageChanged,
-            this, [this]() {
-                _model->headerDataChanged(Qt::Horizontal, 0,
-                                          MessagesModel::ColCount - 1);
-                if (_model->rowCount() > 0) {
-                    emit _model->dataChanged(
-                        _model->index(0, 0),
-                        _model->index(_model->rowCount() - 1,
-                                      MessagesModel::ColCount - 1));
-                }
-                _summary->setText(tr("Loaded %1 messages")
-                                      .arg(_model->rowCount()));
-            });
+    retranslateUi();
 }
 
 void MessagesTab::applyFilters() {
@@ -180,5 +167,41 @@ void MessagesTab::onMessageDeleted(const Message& m) {
     _model->markDeleted(m.id, m.deletedAt);
     _summary->setText(tr("Loaded %1 messages (last: delete)")
                           .arg(_model->rowCount()));
+}
+
+void MessagesTab::changeEvent(QEvent* e) {
+    if (e->type() == QEvent::LanguageChange) {
+        retranslateUi();
+    }
+    QWidget::changeEvent(e);
+}
+
+void MessagesTab::retranslateUi() {
+    _typeLabel->setText(tr("Type:"));
+    _senderLabel->setText(tr("Sender id:"));
+    _senderEdit->setPlaceholderText(tr("0 = all"));
+    _applySenderBtn->setText(tr("Apply"));
+    _loadOlderBtn->setText(tr("Load older"));
+    _refreshBtn->setText(tr("Refresh"));
+
+    const int cur = _typeCombo->currentIndex();
+    _typeCombo->blockSignals(true);
+    _typeCombo->setItemText(0, tr("All"));
+    _typeCombo->setItemText(1, tr("Broadcast only"));
+    _typeCombo->setItemText(2, tr("Private only"));
+    _typeCombo->setCurrentIndex(cur);
+    _typeCombo->blockSignals(false);
+
+    if (_model) {
+        emit _model->headerDataChanged(
+            Qt::Horizontal, 0, MessagesModel::ColCount - 1);
+        if (_model->rowCount() > 0) {
+            emit _model->dataChanged(
+                _model->index(0, 0),
+                _model->index(_model->rowCount() - 1,
+                              MessagesModel::ColCount - 1));
+        }
+        _summary->setText(tr("Loaded %1 messages").arg(_model->rowCount()));
+    }
 }
 } // namespace messenger::server::gui

@@ -26,6 +26,9 @@ public:
 public slots:
     void reload();
 
+protected:
+    void changeEvent(QEvent* e) override;
+
 private slots:
     void onCategoryChanged();
     void onUserFilterApplied();
@@ -44,6 +47,10 @@ private:
     QPushButton* _applyUserBtn = nullptr;
     QPushButton* _refreshBtn = nullptr;
     QLabel*      _summary = nullptr;
+    QLabel*     _categoryLabel = nullptr;
+    QLabel*     _userLabel = nullptr;
+
+    void retranslateUi();
 
     // Журнал в БД пишется не через сигнал, поэтому делаем мягкий polling
     // раз в 3 секунды. Это эффективно для админ-интерфейса.

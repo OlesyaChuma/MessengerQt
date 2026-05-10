@@ -12,6 +12,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QEvent>
 
 namespace messenger::server::gui {
 
@@ -27,28 +28,29 @@ ConnectionLogTab::ConnectionLogTab(Database* db, ChatServer* server,
     auto* toolbar = new QHBoxLayout;
     toolbar->setSpacing(8);
 
-    toolbar->addWidget(new QLabel(tr("Category:")));
+    _categoryLabel = new QLabel;
+    toolbar->addWidget(_categoryLabel);
     _categoryCombo = new QComboBox;
-    _categoryCombo->addItem(tr("All events"));
-    _categoryCombo->addItem(tr("Logins only"));
-    _categoryCombo->addItem(tr("Security events"));
-    _categoryCombo->addItem(tr("Sanctions (ban/kick/unban)"));
+    _categoryCombo->addItem(QString());
+    _categoryCombo->addItem(QString());
+    _categoryCombo->addItem(QString());
+    _categoryCombo->addItem(QString());
     toolbar->addWidget(_categoryCombo);
 
     toolbar->addSpacing(12);
 
-    toolbar->addWidget(new QLabel(tr("User:")));
+    _userLabel = new QLabel;
+    toolbar->addWidget(_userLabel);
     _userEdit = new QLineEdit;
-    _userEdit->setPlaceholderText(tr("login or empty"));
     _userEdit->setMaximumWidth(140);
     toolbar->addWidget(_userEdit);
 
-    _applyUserBtn = new QPushButton(tr("Apply"));
+    _applyUserBtn = new QPushButton;
     toolbar->addWidget(_applyUserBtn);
 
     toolbar->addStretch(1);
 
-    _refreshBtn = new QPushButton(tr("Refresh"));
+    _refreshBtn = new QPushButton;
     toolbar->addWidget(_refreshBtn);
 
     root->addLayout(toolbar);
@@ -90,6 +92,8 @@ ConnectionLogTab::ConnectionLogTab(Database* db, ChatServer* server,
     _pollTimer.start();
 
     reload();
+
+    retranslateUi();
 }
 
 void ConnectionLogTab::reload() {
@@ -144,4 +148,39 @@ void ConnectionLogTab::onAutoRefreshTick() {
     _summary->setText(tr("Loaded %1 events (live)").arg(_model->rowCount()));
 }
 
+void ConnectionLogTab::changeEvent(QEvent* e) {
+    if (e->type() == QEvent::LanguageChange) {
+        retranslateUi();
+    }
+    QWidget::changeEvent(e);
+}
+
+void ConnectionLogTab::retranslateUi() {
+    _categoryLabel->setText(tr("Category:"));
+    _userLabel->setText(tr("User:"));
+    _userEdit->setPlaceholderText(tr("login or empty"));
+    _applyUserBtn->setText(tr("Apply"));
+    _refreshBtn->setText(tr("Refresh"));
+
+    const int cur = _categoryCombo->currentIndex();
+    _categoryCombo->blockSignals(true);
+    _categoryCombo->setItemText(0, tr("All events"));
+    _categoryCombo->setItemText(1, tr("Logins only"));
+    _categoryCombo->setItemText(2, tr("Security events"));
+    _categoryCombo->setItemText(3, tr("Sanctions (ban/kick/unban)"));
+    _categoryCombo->setCurrentIndex(cur);
+    _categoryCombo->blockSignals(false);
+
+    if (_model) {
+        emit _model->headerDataChanged(
+            Qt::Horizontal, 0, ConnectionLogModel::ColCount - 1);
+        if (_model->rowCount() > 0) {
+            emit _model->dataChanged(
+                _model->index(0, 0),
+                _model->index(_model->rowCount() - 1,
+                              ConnectionLogModel::ColCount - 1));
+        }
+        _summary->setText(tr("Loaded %1 events").arg(_model->rowCount()));
+    }
+}
 } // namespace messenger::server::gui

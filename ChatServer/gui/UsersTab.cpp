@@ -12,6 +12,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
+#include <QEvent>
 
 namespace messenger::server::gui {
 
@@ -27,10 +28,10 @@ UsersTab::UsersTab(Database* db, ChatServer* server, qint64 adminId,
     auto* toolbar = new QHBoxLayout;
     toolbar->setSpacing(8);
 
-    _refreshBtn = new QPushButton(tr("Refresh"));
-    _kickBtn    = new QPushButton(tr("Kick"));
-    _banBtn     = new QPushButton(tr("Ban"));
-    _unbanBtn   = new QPushButton(tr("Unban"));
+    _refreshBtn = new QPushButton;
+    _kickBtn    = new QPushButton;
+    _banBtn     = new QPushButton;
+    _unbanBtn   = new QPushButton;
 
     toolbar->addWidget(_refreshBtn);
     toolbar->addStretch(1);
@@ -86,6 +87,7 @@ UsersTab::UsersTab(Database* db, ChatServer* server, qint64 adminId,
 
     onSelectionChanged();
     reload();
+    retranslateUi();
 }
 
 void UsersTab::reload() {
@@ -213,4 +215,29 @@ void UsersTab::onUnbanClicked() {
     reload();
 }
 
+void UsersTab::changeEvent(QEvent* e) {
+    if (e->type() == QEvent::LanguageChange) {
+        retranslateUi();
+    }
+    QWidget::changeEvent(e);
+}
+
+void UsersTab::retranslateUi() {
+    _refreshBtn->setText(tr("Refresh"));
+    _kickBtn->setText(tr("Kick"));
+    _banBtn->setText(tr("Ban"));
+    _unbanBtn->setText(tr("Unban"));
+
+    if (_model) {
+        emit _model->headerDataChanged(
+            Qt::Horizontal, 0, UsersModel::ColCount - 1);
+        if (_model->rowCount() > 0) {
+            emit _model->dataChanged(
+                _model->index(0, 0),
+                _model->index(_model->rowCount() - 1,
+                              UsersModel::ColCount - 1));
+        }
+    }
+    refreshSummary();
+}
 } // namespace messenger::server::gui

@@ -133,6 +133,11 @@ void MainWindow::setupStatusBar() {
     sb->addWidget(new QLabel("|"));
 
     _serverStatus = new QLabel(tr("Server: starting..."));
+    if (_server && _server->sessionsCount() >= 0 /* сервер существует */) {
+        // Сервер уже стартовал к этому моменту — отрисовываем актуальное состояние
+        _serverStatus->setText(tr("Server is listening on %1:%2")
+                                   .arg(_cfg.listen.host).arg(_cfg.listen.port));
+    }
     sb->addWidget(_serverStatus);
 
     sb->addWidget(new QLabel("|"));
@@ -323,6 +328,8 @@ void MainWindow::retranslateUi() {
     setWindowTitle(tr("MessengerQt — Server Administration"));
     _adminLabel->setText(tr("Signed in as: %1").arg(_admin.login));
     updateOnlineCounter();
+    _dbStatus->setText(tr("DB: connected"));
+    _serverStatus->setText(tr("Server: starting..."));
 
     // Перестроим меню целиком — простой и надёжный способ
     menuBar()->clear();

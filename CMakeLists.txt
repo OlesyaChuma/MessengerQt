@@ -19,6 +19,9 @@ set(CMAKE_AUTOUIC ON)
 if(MSVC)
     add_compile_options(/utf-8 /W4 /permissive-)
     add_compile_definitions(_CRT_SECURE_NO_WARNINGS NOMINMAX WIN32_LEAN_AND_MEAN)
+else()
+    # GCC/Clang: предупреждения и явный UTF-8
+    add_compile_options(-Wall -Wextra -Wno-unused-parameter -finput-charset=UTF-8)
 endif()
 
 # ---------- Qt ----------

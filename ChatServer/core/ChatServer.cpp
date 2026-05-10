@@ -30,8 +30,8 @@ bool ChatServer::start(QString* errorOut) {
         if (errorOut) *errorOut = _tcpServer->errorString();
         return false;
     }
-    emit serverMessage(QString("Server is listening on %1:%2")
-                       .arg(_cfg.host).arg(_cfg.port));
+    emit serverMessage(tr("Server is listening on %1:%2")
+                           .arg(_cfg.host).arg(_cfg.port));
     return true;
 }
 
@@ -120,7 +120,7 @@ void ChatServer::onNewConnection() {
 
 void ChatServer::onSessionAuthenticated(qint64 userId, const QString& login) {
     emit clientAuthenticated(userId, login);
-    emit serverMessage(QString("User logged in: %1 (id=%2)").arg(login).arg(userId));
+    emit serverMessage(tr("User logged in: %1 (id=%2)").arg(login).arg(userId));
 }
 
 void ChatServer::onSessionDisconnected() {

@@ -4,6 +4,7 @@
 #include <QDateTime>
 #include <QByteArray>
 #include <QtGlobal>
+#include <QMetaType>
 
 namespace messenger {
 

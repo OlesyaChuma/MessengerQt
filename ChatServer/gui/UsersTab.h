@@ -26,6 +26,9 @@ public slots:
     void onUserAuthenticated(qint64 userId, const QString& login);
     void onUserDisconnected(qint64 userId, const QString& login);
 
+protected:
+    void changeEvent(QEvent* e) override;
+
 private slots:
     void onSelectionChanged();
     void onKickClicked();
@@ -35,6 +38,7 @@ private slots:
 
 private:
     void refreshSummary();
+    void retranslateUi();
     qint64 selectedUserId() const;
     QString selectedUserLogin() const;
     bool isSelectedUserBanned() const;
