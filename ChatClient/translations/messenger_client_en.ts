@@ -349,119 +349,119 @@ It will be replaced with a placeholder for everyone.</source>
 <context>
     <name>messenger::client::gui::MainWindow</name>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="23"/>
-        <location filename="../gui/MainWindow.cpp" line="275"/>
+        <location filename="../gui/MainWindow.cpp" line="39"/>
+        <location filename="../gui/MainWindow.cpp" line="293"/>
         <source>MessengerQt — %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="101"/>
+        <location filename="../gui/MainWindow.cpp" line="117"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="102"/>
+        <location filename="../gui/MainWindow.cpp" line="118"/>
         <source>&amp;View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="103"/>
+        <location filename="../gui/MainWindow.cpp" line="119"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="105"/>
+        <location filename="../gui/MainWindow.cpp" line="121"/>
         <source>&amp;Sign out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="112"/>
+        <location filename="../gui/MainWindow.cpp" line="128"/>
         <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="116"/>
+        <location filename="../gui/MainWindow.cpp" line="132"/>
         <source>Toggle &amp;theme (Light/Dark)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="121"/>
+        <location filename="../gui/MainWindow.cpp" line="137"/>
         <source>&amp;Language...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="125"/>
+        <location filename="../gui/MainWindow.cpp" line="141"/>
         <source>&amp;About...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="134"/>
-        <location filename="../gui/MainWindow.cpp" line="178"/>
-        <location filename="../gui/MainWindow.cpp" line="211"/>
+        <location filename="../gui/MainWindow.cpp" line="150"/>
+        <location filename="../gui/MainWindow.cpp" line="194"/>
+        <location filename="../gui/MainWindow.cpp" line="229"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="140"/>
-        <location filename="../gui/MainWindow.cpp" line="182"/>
+        <location filename="../gui/MainWindow.cpp" line="156"/>
+        <location filename="../gui/MainWindow.cpp" line="198"/>
         <source>Signed in as: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="158"/>
+        <location filename="../gui/MainWindow.cpp" line="174"/>
         <source>Select language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="159"/>
+        <location filename="../gui/MainWindow.cpp" line="175"/>
         <source>Interface language:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="190"/>
+        <location filename="../gui/MainWindow.cpp" line="206"/>
         <source>About MessengerQt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="272"/>
+        <location filename="../gui/MainWindow.cpp" line="207"/>
+        <source>&lt;h3&gt;MessengerQt — Client&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt %2, %3.&lt;/p&gt;&lt;hr&gt;&lt;p&gt;&lt;small&gt;Emoji designed by &lt;a href=&apos;https://openmoji.org/&apos;&gt;OpenMoji&lt;/a&gt; — the open-source emoji and icon project. License: CC BY-SA 4.0&lt;/small&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.cpp" line="290"/>
         <source>MessengerQt — %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="180"/>
-        <location filename="../gui/MainWindow.cpp" line="207"/>
+        <location filename="../gui/MainWindow.cpp" line="196"/>
+        <location filename="../gui/MainWindow.cpp" line="225"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="191"/>
-        <source>&lt;h3&gt;MessengerQt — Client&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt 6.5, MSVC 2022.&lt;/p&gt;&lt;hr&gt;&lt;p&gt;&lt;small&gt;Emoji designed by &lt;a href=&apos;https://openmoji.org/&apos;&gt;OpenMoji&lt;/a&gt; — the open-source emoji and icon project. License: CC BY-SA 4.0&lt;/small&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/MainWindow.cpp" line="217"/>
+        <location filename="../gui/MainWindow.cpp" line="235"/>
         <source>Error: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="221"/>
+        <location filename="../gui/MainWindow.cpp" line="239"/>
         <source>Disconnected by server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="222"/>
+        <location filename="../gui/MainWindow.cpp" line="240"/>
         <source>You were disconnected by an administrator.
 
 Reason: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="227"/>
+        <location filename="../gui/MainWindow.cpp" line="245"/>
         <source>Account blocked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="228"/>
+        <location filename="../gui/MainWindow.cpp" line="246"/>
         <source>Your account has been blocked.
 
 Reason: %1</source>

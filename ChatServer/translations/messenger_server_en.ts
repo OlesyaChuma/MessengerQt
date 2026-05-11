@@ -333,184 +333,188 @@ Check Database section in %2 and ensure messenger_db is reachable.</translation>
 <context>
     <name>messenger::server::gui::MainWindow</name>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="38"/>
-        <location filename="../gui/MainWindow.cpp" line="328"/>
+        <location filename="../gui/MainWindow.cpp" line="54"/>
+        <location filename="../gui/MainWindow.cpp" line="346"/>
         <source>MessengerQt — Server Administration</source>
         <translation>MessengerQt — Server Administration</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="73"/>
-        <location filename="../gui/MainWindow.cpp" line="339"/>
+        <location filename="../gui/MainWindow.cpp" line="89"/>
+        <location filename="../gui/MainWindow.cpp" line="357"/>
         <source>Users</source>
         <translation>Users</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="74"/>
-        <location filename="../gui/MainWindow.cpp" line="340"/>
+        <location filename="../gui/MainWindow.cpp" line="90"/>
+        <location filename="../gui/MainWindow.cpp" line="358"/>
         <source>Messages</source>
         <translation>Messages</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="75"/>
-        <location filename="../gui/MainWindow.cpp" line="341"/>
+        <location filename="../gui/MainWindow.cpp" line="91"/>
+        <location filename="../gui/MainWindow.cpp" line="359"/>
         <source>Connection log</source>
         <translation>Connection log</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="81"/>
+        <location filename="../gui/MainWindow.cpp" line="97"/>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="82"/>
+        <location filename="../gui/MainWindow.cpp" line="98"/>
         <source>&amp;View</source>
         <translation>&amp;View</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="83"/>
+        <location filename="../gui/MainWindow.cpp" line="99"/>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="85"/>
+        <location filename="../gui/MainWindow.cpp" line="101"/>
         <source>&amp;Settings...</source>
         <translation>&amp;Settings...</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="92"/>
+        <location filename="../gui/MainWindow.cpp" line="108"/>
         <source>Minimize to &amp;tray</source>
         <translation>Minimize to &amp;tray</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="96"/>
+        <location filename="../gui/MainWindow.cpp" line="112"/>
         <source>E&amp;xit</source>
         <translation>E&amp;xit</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="103"/>
+        <location filename="../gui/MainWindow.cpp" line="119"/>
         <source>Toggle &amp;theme (Light/Dark)</source>
         <translation>Toggle &amp;theme (Light/Dark)</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="107"/>
+        <location filename="../gui/MainWindow.cpp" line="123"/>
         <source>&amp;Language...</source>
         <translation>&amp;Language...</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="112"/>
+        <location filename="../gui/MainWindow.cpp" line="128"/>
         <source>&amp;Refresh current tab</source>
         <translation>&amp;Refresh current tab</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="121"/>
+        <location filename="../gui/MainWindow.cpp" line="137"/>
         <source>&amp;About...</source>
         <translation>&amp;About...</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="129"/>
-        <location filename="../gui/MainWindow.cpp" line="331"/>
+        <location filename="../gui/MainWindow.cpp" line="145"/>
+        <location filename="../gui/MainWindow.cpp" line="349"/>
         <source>DB: connected</source>
         <translation>DB: connected</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="135"/>
-        <location filename="../gui/MainWindow.cpp" line="332"/>
+        <location filename="../gui/MainWindow.cpp" line="151"/>
+        <location filename="../gui/MainWindow.cpp" line="350"/>
         <source>Server: starting...</source>
         <translation>Server: starting...</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="138"/>
+        <location filename="../gui/MainWindow.cpp" line="154"/>
         <source>Server is listening on %1:%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="145"/>
+        <location filename="../gui/MainWindow.cpp" line="161"/>
         <source>Online: 0</source>
         <translation>Online: 0</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="149"/>
-        <location filename="../gui/MainWindow.cpp" line="329"/>
+        <location filename="../gui/MainWindow.cpp" line="165"/>
+        <location filename="../gui/MainWindow.cpp" line="347"/>
         <source>Signed in as: %1</source>
         <translation>Signed in as: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="184"/>
+        <location filename="../gui/MainWindow.cpp" line="200"/>
         <source>About MessengerQt Server</source>
         <translation>About MessengerQt Server</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="185"/>
-        <source>&lt;h3&gt;MessengerQt — Server Administration&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt 6.5, PostgreSQL, MSVC 2022.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;MessengerQt — Server Administration&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt 6.5, PostgreSQL, MSVC 2022.&lt;/p&gt;</translation>
+        <location filename="../gui/MainWindow.cpp" line="201"/>
+        <source>&lt;h3&gt;MessengerQt — Server Administration&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt %2, PostgreSQL, %3.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="203"/>
+        <source>&lt;h3&gt;MessengerQt — Server Administration&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt 6.5, PostgreSQL, MSVC 2022.&lt;/p&gt;</source>
+        <translation type="vanished">&lt;h3&gt;MessengerQt — Server Administration&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt 6.5, PostgreSQL, MSVC 2022.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.cpp" line="221"/>
         <source>New connection from %1</source>
         <translation>New connection from %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="207"/>
+        <location filename="../gui/MainWindow.cpp" line="225"/>
         <source>User logged in: %1 (id=%2)</source>
         <translation>User logged in: %1 (id=%2)</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="210"/>
+        <location filename="../gui/MainWindow.cpp" line="228"/>
         <source>User connected</source>
         <translation>User connected</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="211"/>
+        <location filename="../gui/MainWindow.cpp" line="229"/>
         <source>%1 logged in</source>
         <translation>%1 logged in</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="218"/>
+        <location filename="../gui/MainWindow.cpp" line="236"/>
         <source>User logged out: %1</source>
         <translation>User logged out: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="229"/>
+        <location filename="../gui/MainWindow.cpp" line="247"/>
         <source>Online: %1</source>
         <translation>Online: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="252"/>
+        <location filename="../gui/MainWindow.cpp" line="270"/>
         <source>Close server</source>
         <translation>Close server</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="254"/>
+        <location filename="../gui/MainWindow.cpp" line="272"/>
         <source>&lt;b&gt;Close MessengerQt Server?&lt;/b&gt;</source>
         <translation>&lt;b&gt;Close MessengerQt Server?&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="255"/>
+        <location filename="../gui/MainWindow.cpp" line="273"/>
         <source>If you choose &lt;b&gt;Quit&lt;/b&gt;, the server will stop and all connected clients will be disconnected.&lt;br&gt;&lt;br&gt;If you choose &lt;b&gt;Hide to tray&lt;/b&gt;, the server keeps running in the background and you can restore the window from the system tray icon.</source>
         <translation>If you choose &lt;b&gt;Quit&lt;/b&gt;, the server will stop and all connected clients will be disconnected.&lt;br&gt;&lt;br&gt;If you choose &lt;b&gt;Hide to tray&lt;/b&gt;, the server keeps running in the background and you can restore the window from the system tray icon.</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="262"/>
+        <location filename="../gui/MainWindow.cpp" line="280"/>
         <source>Quit server</source>
         <translation>Quit server</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="264"/>
+        <location filename="../gui/MainWindow.cpp" line="282"/>
         <source>Hide to tray</source>
         <translation>Hide to tray</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="269"/>
+        <location filename="../gui/MainWindow.cpp" line="287"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="312"/>
+        <location filename="../gui/MainWindow.cpp" line="330"/>
         <source>Select language</source>
         <translation>Select language</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="313"/>
+        <location filename="../gui/MainWindow.cpp" line="331"/>
         <source>Interface language:</source>
         <translation>Interface language:</translation>
     </message>

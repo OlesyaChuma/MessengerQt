@@ -102,7 +102,7 @@
         <location filename="../gui/ChatPanel.cpp" line="229"/>
         <location filename="../gui/ChatPanel.cpp" line="300"/>
         <source>Cannot edit message</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удается отредактировать сообщение</translation>
     </message>
     <message>
         <location filename="../gui/ChatPanel.cpp" line="234"/>
@@ -139,7 +139,7 @@ It will be replaced with a placeholder for everyone.</source>
     <message>
         <location filename="../gui/ChatPanel.cpp" line="335"/>
         <source># General chat</source>
-        <translation type="unfinished"># Общий чат</translation>
+        <translation># Общий чат</translation>
     </message>
 </context>
 <context>
@@ -354,8 +354,8 @@ It will be replaced with a placeholder for everyone.</source>
 <context>
     <name>messenger::client::gui::MainWindow</name>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="23"/>
-        <location filename="../gui/MainWindow.cpp" line="275"/>
+        <location filename="../gui/MainWindow.cpp" line="39"/>
+        <location filename="../gui/MainWindow.cpp" line="293"/>
         <source>MessengerQt — %1</source>
         <translation>MessengerQt — %1</translation>
     </message>
@@ -364,95 +364,95 @@ It will be replaced with a placeholder for everyone.</source>
         <translation type="vanished">MessengerQt — %1 — %2</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="101"/>
+        <location filename="../gui/MainWindow.cpp" line="117"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="102"/>
+        <location filename="../gui/MainWindow.cpp" line="118"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="103"/>
+        <location filename="../gui/MainWindow.cpp" line="119"/>
         <source>&amp;Help</source>
         <translation>&amp;Справка</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="105"/>
+        <location filename="../gui/MainWindow.cpp" line="121"/>
         <source>&amp;Sign out</source>
         <translation>&amp;Выйти из аккаунта</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="112"/>
+        <location filename="../gui/MainWindow.cpp" line="128"/>
         <source>E&amp;xit</source>
         <translation>В&amp;ыход</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="116"/>
+        <location filename="../gui/MainWindow.cpp" line="132"/>
         <source>Toggle &amp;theme (Light/Dark)</source>
         <translation>Сменить &amp;тему (светлая/тёмная)</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="121"/>
+        <location filename="../gui/MainWindow.cpp" line="137"/>
         <source>&amp;Language...</source>
         <translation>&amp;Язык...</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="125"/>
+        <location filename="../gui/MainWindow.cpp" line="141"/>
         <source>&amp;About...</source>
         <translation>&amp;О программе...</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="190"/>
+        <location filename="../gui/MainWindow.cpp" line="206"/>
         <source>About MessengerQt</source>
         <translation>О программе MessengerQt</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.cpp" line="207"/>
+        <source>&lt;h3&gt;MessengerQt — Client&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt %2, %3.&lt;/p&gt;&lt;hr&gt;&lt;p&gt;&lt;small&gt;Emoji designed by &lt;a href=&apos;https://openmoji.org/&apos;&gt;OpenMoji&lt;/a&gt; — the open-source emoji and icon project. License: CC BY-SA 4.0&lt;/small&gt;&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;MessengerQt — Клиент&lt;/h3&gt;&lt;p&gt;Версия %1&lt;/p&gt;&lt;p&gt;Многопользовательский сетевой мессенджер.&lt;br&gt;Итоговая аттестация по программе «C++ разработчик».&lt;/p&gt;&lt;p&gt;Собран на Qt %2, %3.&lt;/p&gt;&lt;hr&gt;&lt;p&gt;&lt;small&gt;Эмодзи: &lt;a href='https://openmoji.org/'&gt;OpenMoji&lt;/a&gt; — open-source проект эмодзи и иконок. Лицензия: CC BY-SA 4.0&lt;/small&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&lt;h3&gt;MessengerQt — Client&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt 6.5, MSVC 2022.&lt;/p&gt;</source>
         <translation type="vanished">&lt;h3&gt;MessengerQt — Клиент&lt;/h3&gt;&lt;p&gt;Версия %1&lt;/p&gt;&lt;p&gt;Многопользовательский сетевой мессенджер.&lt;br&gt;Итоговая аттестация по программе «C++ разработчик».&lt;/p&gt;&lt;p&gt;Собран на Qt 6.5, MSVC 2022.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="272"/>
+        <location filename="../gui/MainWindow.cpp" line="290"/>
         <source>MessengerQt — %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>MessengerQt — %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="134"/>
-        <location filename="../gui/MainWindow.cpp" line="178"/>
-        <location filename="../gui/MainWindow.cpp" line="211"/>
+        <location filename="../gui/MainWindow.cpp" line="150"/>
+        <location filename="../gui/MainWindow.cpp" line="194"/>
+        <location filename="../gui/MainWindow.cpp" line="229"/>
         <source>Connected</source>
         <translation>Подключено</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="180"/>
-        <location filename="../gui/MainWindow.cpp" line="207"/>
+        <location filename="../gui/MainWindow.cpp" line="196"/>
+        <location filename="../gui/MainWindow.cpp" line="225"/>
         <source>Disconnected</source>
         <translation>Отключено</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="140"/>
-        <location filename="../gui/MainWindow.cpp" line="182"/>
+        <location filename="../gui/MainWindow.cpp" line="156"/>
+        <location filename="../gui/MainWindow.cpp" line="198"/>
         <source>Signed in as: %1</source>
         <translation>Вход выполнен: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="191"/>
-        <source>&lt;h3&gt;MessengerQt — Client&lt;/h3&gt;&lt;p&gt;Version %1&lt;/p&gt;&lt;p&gt;Multi-user network messenger.&lt;br&gt;Final qualifying project — C++ developer programme.&lt;/p&gt;&lt;p&gt;Built with Qt 6.5, MSVC 2022.&lt;/p&gt;&lt;hr&gt;&lt;p&gt;&lt;small&gt;Emoji designed by &lt;a href=&apos;https://openmoji.org/&apos;&gt;OpenMoji&lt;/a&gt; — the open-source emoji and icon project. License: CC BY-SA 4.0&lt;/small&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/MainWindow.cpp" line="217"/>
+        <location filename="../gui/MainWindow.cpp" line="235"/>
         <source>Error: %1</source>
         <translation>Ошибка: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="221"/>
+        <location filename="../gui/MainWindow.cpp" line="239"/>
         <source>Disconnected by server</source>
         <translation>Отключено сервером</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="222"/>
+        <location filename="../gui/MainWindow.cpp" line="240"/>
         <source>You were disconnected by an administrator.
 
 Reason: %1</source>
@@ -461,12 +461,12 @@ Reason: %1</source>
 Причина: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="227"/>
+        <location filename="../gui/MainWindow.cpp" line="245"/>
         <source>Account blocked</source>
         <translation>Аккаунт заблокирован</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="228"/>
+        <location filename="../gui/MainWindow.cpp" line="246"/>
         <source>Your account has been blocked.
 
 Reason: %1</source>
@@ -475,12 +475,12 @@ Reason: %1</source>
 Причина: %1</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="158"/>
+        <location filename="../gui/MainWindow.cpp" line="174"/>
         <source>Select language</source>
         <translation>Выбор языка</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.cpp" line="159"/>
+        <location filename="../gui/MainWindow.cpp" line="175"/>
         <source>Interface language:</source>
         <translation>Язык интерфейса:</translation>
     </message>
@@ -565,7 +565,7 @@ Reason: %1</source>
     <message>
         <location filename="../gui/UsersPanel.cpp" line="156"/>
         <source># General chat</source>
-        <translation type="unfinished"># Общий чат</translation>
+        <translation># Общий чат</translation>
     </message>
 </context>
 </TS>

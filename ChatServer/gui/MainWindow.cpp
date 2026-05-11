@@ -26,6 +26,22 @@
 #include <QPushButton>
 #include <QAbstractButton>
 
+namespace {
+QString buildToolchain() {
+#if defined(__clang__)
+    return QStringLiteral("Clang %1.%2.%3")
+        .arg(__clang_major__).arg(__clang_minor__).arg(__clang_patchlevel__);
+#elif defined(__GNUC__)
+    return QStringLiteral("GCC %1.%2.%3")
+        .arg(__GNUC__).arg(__GNUC_MINOR__).arg(__GNUC_PATCHLEVEL__);
+#elif defined(_MSC_VER)
+    return QStringLiteral("MSVC 2022");
+#else
+    return QStringLiteral("unknown compiler");
+#endif
+}
+} // namespace
+
 namespace messenger::server::gui {
 
 MainWindow::MainWindow(Database* db, AuthService* auth, ChatServer* server,
@@ -33,8 +49,8 @@ MainWindow::MainWindow(Database* db, AuthService* auth, ChatServer* server,
                        const Config& cfg, const QString& configPath,
                        QWidget* parent)
     : QMainWindow(parent),
-      _db(db), _auth(auth), _server(server), _admin(adminRecord),
-      _cfg(cfg), _configPath(configPath) {
+    _db(db), _auth(auth), _server(server), _admin(adminRecord),
+    _cfg(cfg), _configPath(configPath) {
     setWindowTitle(tr("MessengerQt — Server Administration"));
     setWindowIcon(QIcon(":/server/icons/server.svg"));
     resize(900, 620);
@@ -182,12 +198,14 @@ void MainWindow::onThemeToggled() {
 
 void MainWindow::onAboutTriggered() {
     QMessageBox::about(this, tr("About MessengerQt Server"),
-        tr("<h3>MessengerQt — Server Administration</h3>"
-           "<p>Version %1</p>"
-           "<p>Multi-user network messenger.<br>"
-           "Final qualifying project — C++ developer programme.</p>"
-           "<p>Built with Qt 6.5, PostgreSQL, MSVC 2022.</p>")
-        .arg(QApplication::applicationVersion()));
+                       tr("<h3>MessengerQt — Server Administration</h3>"
+                          "<p>Version %1</p>"
+                          "<p>Multi-user network messenger.<br>"
+                          "Final qualifying project — C++ developer programme.</p>"
+                          "<p>Built with Qt %2, PostgreSQL, %3.</p>")
+                           .arg(QApplication::applicationVersion(),
+                                QT_VERSION_STR,
+                                buildToolchain()));
 }
 
 void MainWindow::onSettingsTriggered() {

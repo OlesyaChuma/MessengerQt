@@ -16,6 +16,22 @@
 #include <QInputDialog>
 #include <QApplication>
 
+namespace {
+QString buildToolchain() {
+#if defined(__clang__)
+    return QStringLiteral("Clang %1.%2.%3")
+        .arg(__clang_major__).arg(__clang_minor__).arg(__clang_patchlevel__);
+#elif defined(__GNUC__)
+    return QStringLiteral("GCC %1.%2.%3")
+        .arg(__GNUC__).arg(__GNUC_MINOR__).arg(__GNUC_PATCHLEVEL__);
+#elif defined(_MSC_VER)
+    return QStringLiteral("MSVC 2022");
+#else
+    return QStringLiteral("unknown compiler");
+#endif
+}
+} // namespace
+
 namespace messenger::client::gui {
 
 MainWindow::MainWindow(ChatClientCore* core, QWidget* parent)
@@ -192,13 +208,15 @@ void MainWindow::onAboutTriggered() {
                           "<p>Version %1</p>"
                           "<p>Multi-user network messenger.<br>"
                           "Final qualifying project — C++ developer programme.</p>"
-                          "<p>Built with Qt 6.5, MSVC 2022.</p>"
+                          "<p>Built with Qt %2, %3.</p>"
                           "<hr>"
                           "<p><small>Emoji designed by "
                           "<a href='https://openmoji.org/'>OpenMoji</a> — "
                           "the open-source emoji and icon project. "
                           "License: CC BY-SA 4.0</small></p>")
-                           .arg(QApplication::applicationVersion()));
+                           .arg(QApplication::applicationVersion(),
+                                QT_VERSION_STR,
+                                buildToolchain()));
 }
 
 void MainWindow::onCoreState(ChatClientCore::State,
