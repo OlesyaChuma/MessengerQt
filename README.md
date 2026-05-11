@@ -266,14 +266,6 @@ ctest --test-dir build --output-on-failure
 
 ---
 
-## Документация
-
-- [Архитектура проекта](docs/architecture.md)
-- [Сетевой протокол](docs/protocol.md)
-- [Схема БД](docs/db_schema.md)
-
----
-
 ## Атрибуции
 
 - **Эмодзи:** [OpenMoji](https://openmoji.org/) — open-source emoji and icon project, лицензия [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
