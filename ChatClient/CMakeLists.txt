@@ -131,6 +131,7 @@ qt_add_resources(ChatClient "client_resources"
         resources/emoji/274C.png
         resources/emoji/2753.png
         resources/emoji/2757.png
+        resources/sounds/notify.wav
 )
 
 # Переводы — .qm файлы генерируются вне CMake через update_translations.bat
@@ -161,6 +162,7 @@ target_link_libraries(ChatClient PRIVATE
     Qt6::Gui
     Qt6::Widgets
     Qt6::Network
+    Qt6::Multimedia
 )
 
 # GUI-приложение — без cmd-окна

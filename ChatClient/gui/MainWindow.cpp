@@ -15,6 +15,8 @@
 #include <QCloseEvent>
 #include <QInputDialog>
 #include <QApplication>
+#include <QSoundEffect>
+#include <QUrl>
 
 namespace {
 QString buildToolchain() {
@@ -43,6 +45,10 @@ MainWindow::MainWindow(ChatClientCore* core, QWidget* parent)
     setupUi();
     setupMenu();
     setupStatusBar();
+
+    QSettings s;
+    _soundEnabled = s.value("client/ui/notifications/sound", true).toBool();
+    setupNotificationSound();
 
     connect(_core, &ChatClientCore::stateChanged,
             this, &MainWindow::onCoreState);
@@ -135,6 +141,13 @@ void MainWindow::setupMenu() {
             this, &MainWindow::onThemeToggled);
 
     _languageAction = menuView->addAction(tr("&Language..."));
+
+    _muteAction = menuView->addAction(tr("&Mute notification sound"));
+    _muteAction->setCheckable(true);
+    _muteAction->setChecked(!_soundEnabled);
+    connect(_muteAction, &QAction::toggled,
+            this, [this](bool muted) { setSoundEnabled(!muted); });
+
     connect(_languageAction, &QAction::triggered,
             this, &MainWindow::onSelectLanguage);
 
@@ -268,6 +281,20 @@ void MainWindow::saveWindowState() {
     s.setValue("client/ui/mainwindow/splitter", _splitter->saveState());
 }
 
+void MainWindow::setupNotificationSound() {
+    _notifySound = new QSoundEffect(this);
+    _notifySound->setSource(QUrl("qrc:/client/sounds/notify.wav"));
+    _notifySound->setVolume(0.7);   // 0.0 .. 1.0
+    _notifySound->setLoopCount(1);
+}
+
+void MainWindow::setSoundEnabled(bool on) {
+    _soundEnabled = on;
+    QSettings s;
+    s.setValue("client/ui/notifications/sound", on);
+    if (_muteAction) _muteAction->setChecked(!on); // чекбокс показывает «выключено»
+}
+
 void MainWindow::incrementUnread(qint64 peerId) {
     _unreadByPeer[peerId] = _unreadByPeer.value(peerId, 0) + 1;
     _unreadTotal++;
@@ -296,11 +323,13 @@ void MainWindow::updateWindowTitle() {
 
 void MainWindow::notifyNewMessage(const QString& /*senderName*/,
                                   const QString& /*body*/) {
-    // 1) Мигание иконки в панели задач — стандарт Windows
+    // 1) Мигание иконки в панели задач
     QApplication::alert(this);
 
-    // 2) Звуковой сигнал — системный «дзинь»
-    QApplication::beep();
+    // 2) Звуковой сигнал — кастомный WAV, если включён
+    if (_soundEnabled && _notifySound && _notifySound->isLoaded()) {
+        _notifySound->play();
+    }
 }
 
 } // namespace messenger::client::gui

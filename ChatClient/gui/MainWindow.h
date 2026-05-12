@@ -4,6 +4,7 @@
 
 #include <QMainWindow>
 #include <QHash>
+#include <QSoundEffect>
 
 class QSplitter;
 class QLabel;
@@ -57,6 +58,13 @@ private:
 
     int _unreadTotal = 0;
     QHash<qint64, int> _unreadByPeer;  // peerId - counter
+
+    QAction* _muteAction = nullptr;     // галочка «без звука» в меню View
+    QSoundEffect* _notifySound = nullptr;
+    bool _soundEnabled = true;
+
+    void setupNotificationSound();      // загрузка WAV
+    void setSoundEnabled(bool on);      // переключение + сохранение в QSettings
 
     void incrementUnread(qint64 peerId);
     void clearUnreadFor(qint64 peerId);

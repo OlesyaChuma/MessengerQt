@@ -25,7 +25,7 @@ else()
 endif()
 
 # ---------- Qt ----------
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Gui Widgets Network Sql Test)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Gui Widgets Network Sql Test Multimedia)
 qt_standard_project_setup()
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
