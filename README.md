@@ -121,7 +121,7 @@
 
 ### Linux
 
-Сборка под Ubuntu 22.04 + Qt 6.5, GCC. Интерфейс и темы идентичны Windows-сборке,
+Сборка под AstraLinux + Qt 6.5, GCC. Интерфейс и темы идентичны Windows-сборке,
 About-диалог автоматически показывает реальный тулчейн.
 
 #### Клиент
@@ -237,7 +237,7 @@ cmake --build build --config Release
 
 ### Сборка под Linux
 
-**Требования (Ubuntu/Debian):**
+**Требования (Ubuntu/Debian/AstraLinux):**
 ```bash
 sudo apt update
 sudo apt install -y build-essential cmake ninja-build git \
