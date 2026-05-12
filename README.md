@@ -238,8 +238,6 @@ JSON-фреймы поверх TCP с длино-префиксным фрейм
 
 `new_message`, `message_edited`, `message_deleted`, `user_online`, `user_offline`, `kicked`, `banned`
 
-Полное описание команд и форматов — в [`docs/protocol.md`](docs/protocol.md).
-
 ---
 
 ## Тестирование
