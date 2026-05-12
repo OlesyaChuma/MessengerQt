@@ -369,11 +369,6 @@ JSON-фреймы поверх TCP с длино-префиксным фрейм
 ctest --test-dir build --output-on-failure
 ```
 
-<<<<<<< HEAD
-=======
----
-
->>>>>>> 14f67b62b501381618a0f7e8ce2a3c7d69544750
 ## Атрибуции
 
 - **Эмодзи:** [OpenMoji](https://openmoji.org/) — open-source emoji and icon project, лицензия [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
@@ -392,8 +387,5 @@ ctest --test-dir build --output-on-failure
 **Чумаченко О. А.**
 
 Итоговая аттестация по программе «Профессия "C++ разработчик"», 2026 г.
-
-<<<<<<< HEAD
-=======
 GitHub: [@OlesyaChuma](https://github.com/OlesyaChuma)
->>>>>>> 14f67b62b501381618a0f7e8ce2a3c7d69544750
+
