@@ -37,7 +37,7 @@
 | GUI-фреймворк | Qt 6.5 (Widgets) |
 | База данных | PostgreSQL 14+ |
 | Сборочная система | CMake 3.21+ |
-| Поддерживаемые ОС | Windows 10/11, Linux (Ubuntu 22.04+, Debian, Fedora) |
+| Поддерживаемые ОС | Windows 10/11, Linux (Ubuntu 22.04+, Debian, Astra Linux) |
 | Компиляторы | MSVC 2022 (Windows), GCC 11+ / Clang 14+ (Linux) |
 | IDE | Qt Creator |
 | Тестирование | QTest |
@@ -182,8 +182,8 @@ MessengerQt/
 ├── sql/                 001_init.sql — схема PostgreSQL
 ├── cmake/               WinDeployQt.cmake — деплой Qt-зависимостей (Windows)
 ├── config/              server.ini.example
-├── docs/                документация и скриншоты (Windows + Linux)
-└── 
+└── docs/                скриншоты (Windows + Linux)
+ 
 ```
 
 ---
